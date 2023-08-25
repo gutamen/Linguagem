@@ -1,0 +1,80 @@
+ -> Nome da liguagem
+ -> Tipos (pelo menos 3)
+ -> Construções (seleção, repetição, entrada, saída, declaração de variáveis, etc.)
+ -> Sintaxe dos comandos (exemplos, ainda não precisa de GLC)
+ -> Delimitação dos tokens (Expressões regulares e autômato) -- padrões de tokens
+ -> Formato dos identificadores
+ -> Operadores lógicos, relacionais e aritméticos
+
+
+Tipos = Integer, Float, Char
+
+Variáveis = nomes somente letras maiúsculas.
+
+O fim de linha é considerado quando é encontrado um ';'
+
+Blocos são definidos com a abertura com '->' e fechamento '<-', funções com bloco deverão manter o ';' somente após o fechamento do bloco.
+
+Construções = todos os construtores entre Underline _<construção>_
+
+_repeater_ <valor> <operador> <valor> -> <... linhas no laço ...> <-;
+Compara somente variáveis do mesmo tipo, repete enquanto for verdadeiro.
+
+_for_ <início>, <final>, <nova_varíavel_de_controle> -> <... linhas no laço ...> <-;
+Sempre adiciona +1, pode ser alterado dentro das linhas do laço
+
+_if_ <valor> <operador> <valor> -> <... linhas após codição ...> <-; 
+Compara somente varíaveis do mesmo tipo
+
+_print_ <varíavel> || "String a ser escrita";
+Somente uma das opções
+
+_read_ <varível>;
+Lê do terminal e guarda na varíavel selecionada, para o programa
+
+Declaração de varíavel sempre com o _new_ <tipo> <nome>, podem ser decladas em qualquer lugar, porém a atribução deve ser feita em um próximo comando.
+
+Operadores:
+    
+    Aritméticos ->
+        Atribuição      =
+        Adição          +
+        Subtração       - 
+        Divisão         /
+        Multiplicação   *
+    
+    Lógicos ->
+        Igualdade       ==
+        E               &&
+        OU              ||
+        Negação         !!
+        Maior           >>
+        Menor           <<
+
+
+    Palavra-chave   key     _(a-z)+_
+
+    Identificador   id      (A-Z)+ 
+
+    Tipo            tp      (A-Z)(a-z)*
+
+    Integer         int     (0-9)+
+
+    Float           ft      (0-9)+.(0-9)*
+
+    Char            ch      ()(a-zA-Z)+
+
+    Final-Linha     ;       ;
+
+    Abre Bloco      >       ->
+
+    Fecha Bloco     <       <-
+
+    String          str     "(a-zA-Z?!=+-*/)*"
+
+    Lógicos         log     (=+-/*)
+
+    Aritméticos     ari     (==&&||!!>><<)
+
+
+    
