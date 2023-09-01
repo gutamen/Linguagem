@@ -13,17 +13,17 @@ Variáveis = nomes somente letras maiúsculas.
 
 O fim de linha é considerado quando é encontrado um ';'
 
-Blocos são definidos com a abertura com '->' e fechamento '<-', funções com bloco deverão manter o ';' somente após o fechamento do bloco.
+Blocos são definidos com a abertura com '$>' e fechamento '$<', funções com bloco deverão manter o ';' somente após o fechamento do bloco.
 
 Construções = todos os construtores entre Underline _<construção>_
 
-_repeater_ <valor> <operador> <valor> -> <... linhas no laço ...> <-;
+_repeater_ <valor> <operador> <valor> $> <... linhas no laço ...> $<;
 Compara somente variáveis do mesmo tipo, repete enquanto for verdadeiro.
 
-_for_ <início>, <final>, <nova_varíavel_de_controle> -> <... linhas no laço ...> <-;
+_for_ <início>, <final>, <nova_varíavel_de_controle> $> <... linhas no laço ...> $<;
 Sempre adiciona +1, pode ser alterado dentro das linhas do laço
 
-_if_ <valor> <operador> <valor> -> <... linhas após codição ...> <-; 
+_if_ <valor> <operador> <valor> $> <... linhas após codição ...> $<; 
 Compara somente varíaveis do mesmo tipo
 
 _print_ <varíavel> || "String a ser escrita";
@@ -52,7 +52,7 @@ Operadores:
         Menor           <<
 
 
-    Palavra-chave   key     _(a-z)+_
+    Palavra-chave   key     _(a-z)+_    repeater, if, for, new, print, reader 
 
     Identificador   id      (A-Z)+ 
 
@@ -66,15 +66,44 @@ Operadores:
 
     Final-Linha     ;       ;
 
-    Abre Bloco      >       ->
+    Abre Bloco      >       $>
 
-    Fecha Bloco     <       <-
+    Fecha Bloco     <       $<
 
     String          str     "(a-zA-Z?!=+-*/)*"
 
-    Lógicos         log     (=+-/*)
+    Aritméticos     ari     (+-/*)
 
-    Aritméticos     ari     (==&&||!!>><<)
+    declaração      =     (=)
 
+    Lógicos         log     (::,&&,||,!!)
 
+    Relacional      rel     (<<,>>)
+
+GLC ==
+
+    <programa> -> <declaracoes> ;
+
+    <declaracoes> -> <declaracao> ; <declaracoes> | ε
+
+    <declaracao> -> <atribuicao> | <declaracao-tipo> | <funcao>
+
+    <declaracao-tipo> -> new tp id
+
+    <atribuicao> -> id = <multi> | id = ch
+
+    <multi> -> <termo> | <expressao> + <termo> | <expressao> - <termo> | <expressao> * <termo> | <expressao> / <termo> | <multi> * <termo> | <multi> / <termo>  
+
+    <expressao> -> <termo> | <expressao> + <termo> | <expressao> - <termo> 
+
+    <termo> -> id | int | ft
+
+    <funcao> -> repeater | if <sera> | for | print <impressao> | reader <termo> | reader ch 
     
+    <impressao> -> id | str
+
+    <sera> ->  <multi> log <multi> > <declaracoes> < | <multi> rel <multi> > <declaracoes> < |
+ 
+
+
+
