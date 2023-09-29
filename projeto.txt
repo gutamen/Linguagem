@@ -102,7 +102,9 @@ GLC ==
     
     <impressao> -> id | str
 
-    <sera> ->  <multi> log <multi> > <declaracoes> < | <multi> rel <multi> > <declaracoes> < |
+    <sera> ->  <multi> log <logrel> > <declaracoes> < | <multi> rel <logrel> > <declaracoes> < |
+
+    <logrel> -> <multi> | <multi> log <multi> | <multi> rel <multi>
  
 
 
