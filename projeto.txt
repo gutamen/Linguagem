@@ -98,13 +98,15 @@ GLC ==
 
     <termo> -> id | int | ft
 
-    <funcao> -> repeater | if <sera> | for | print <impressao> | reader <termo> | reader ch 
+    <variacao> -> int
+
+    <funcao> -> repeater <sera> | if <sera> | for <variacao> <variacao> id > <declaracoes> < | print <impressao> | reader <termo> | reader ch 
     
     <impressao> -> id | str
 
-    <sera> ->  <multi> log <logrel> > <declaracoes> < | <multi> rel <logrel> > <declaracoes> < |
+    <sera> ->  <multi> log <logrel> > <declaracoes> < | <multi> rel <logrel> > <declaracoes> < | 
 
-    <logrel> -> <multi> | <multi> log <multi> | <multi> rel <multi>
+    <logrel> -> <multi> | <multi> log <multi> | <multi> rel <multi> | <multi> log <logrel> | <multi> rel <logrel> 
  
 
 
