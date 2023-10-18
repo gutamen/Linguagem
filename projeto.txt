@@ -20,7 +20,7 @@ Construções = todos os construtores entre Underline _<construção>_
 _repeater_ <valor> <operador> <valor> $> <... linhas no laço ...> $<;
 Compara somente variáveis do mesmo tipo, repete enquanto for verdadeiro.
 
-_for_ <início>, <final>, <nova_varíavel_de_controle> $> <... linhas no laço ...> $<;
+_for_ <início> , <final> , <nova_varíavel_de_controle> $> <... linhas no laço ...> $<;
 Sempre adiciona +1, pode ser alterado dentro das linhas do laço
 
 _if_ <valor> <operador> <valor> $> <... linhas após codição ...> $<; 
@@ -56,7 +56,7 @@ Operadores:
 
     Identificador   id      (A-Z)+ 
 
-    Tipo            tp      _(A-Z)(a-z)*_
+    Tipo            tp      _(A-Z)(a-z)*_ Integer, Float, Char
 
     Integer         int     (0-9)+
 
@@ -98,9 +98,7 @@ GLC ==
 
     <termo> -> id | int | ft
 
-    <variacao> -> int
-
-    <funcao> -> repeater <sera> | if <sera> | for <variacao> <variacao> id > <declaracoes> < | print <impressao> | reader <termo> | reader ch 
+    <funcao> -> repeater <sera> | if <sera> | for int , int , id > <declaracoes> < | print <impressao> | reader <termo> | reader ch 
     
     <impressao> -> id | str
 
