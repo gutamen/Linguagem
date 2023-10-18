@@ -81,7 +81,7 @@ Operadores:
     Relacional      rel     (<<,>>)
 
 GLC ==
-
+{
     <programa> -> <declaracoes> ;
 
     <declaracoes> -> <declaracao> ; <declaracoes> | ε
@@ -105,7 +105,34 @@ GLC ==
     <sera> ->  <multi> log <logrel> > <declaracoes> < | <multi> rel <logrel> > <declaracoes> < | 
 
     <logrel> -> <multi> | <multi> log <multi> | <multi> rel <multi> | <multi> log <logrel> | <multi> rel <logrel> 
+
+}
+
+ Exemplo:
+
+ _new_ _Integer_ TESTE; 
+ _new_ _Integer_ VAR;
+
+ VAR = 10 + 1;
+ TESTE = 5;
+
+ _print_ "Teste de linguagem";
+
+ _if_ 10 < VAR $> 
+ _print_ "Variável maior que dez";
+ <$;
+
+ _repeater_ 10 < VAR $>
+ VAR = VAR - 10;
+ <$;
+
+ _for_ 1, 10, I $> 
+ TESTE = TESTE * 2;
+ <$;
+
+ _print_ TESTE;
  
+
 
 
 
