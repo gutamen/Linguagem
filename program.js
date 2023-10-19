@@ -10,9 +10,9 @@ const regexes = [
     ["Fecha Bloco", "<", "$<"],
     ["String", "str", "'(a-zA-Z?!=+-*/)*"],
     ["Aritméticos", "ari", "+-/*"],
-    ["declaração", "=", (=)],
-    ["Lógicos", "log", (::,&&,||,!!)],
-    ["Relacional", "rel", (<<,>>)],
+    ["declaração", "=", "="],
+    ["Lógicos", "log", "::,&&,||,!!"],
+    ["Relacional", "rel", "<<,>>"],
   ];
   
   const file = fs.readFileSync("regexes.txt", "utf-8");
