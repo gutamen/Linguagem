@@ -224,6 +224,11 @@
 			<read>0-9</read>&#13;
 		</transition>&#13;
 		<transition>&#13;
+			<from>8</from>&#13;
+			<to>8</to>&#13;
+			<read>0-9</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
 			<from>0</from>&#13;
 			<to>4</to>&#13;
 			<read>_</read>&#13;

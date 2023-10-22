@@ -1,15 +1,58 @@
-const { TIMEOUT } = require("dns");
+
 const fs = require("fs");
 
-//console.log('teste');
 
-let file = fs.readFileSync("teste", "utf-8");
+let file = fs.readFileSync(process.argv[2], "utf-8");
 
 let tokens = [];
 
 let state = 0;
 
 let readString = "";
+
+let keyType = function(compare, line, column) {
+    
+    switch(compare){
+        case "_repeater_":
+            return "repeater";
+
+        case "_if_":
+            return "if";
+        
+        case "_for_":
+            return "for";
+
+        case "_new_":
+            return "new";
+            
+        case "_print_":
+            return "print";
+
+        case "_reader_":
+            return "reader";
+
+        default:
+            console.log("Função não reconhecida na linha " + line + " coluna " + column);
+            return "F";
+
+    }
+
+}
+
+let varType = function(compare, line, column){
+    switch(compare){
+        case "_Integer_":
+            return "int";
+        case "_Char_":
+            return "ch";
+        case "_Float":
+            return "ft";
+        default:
+            console.log("Tipo não reconhecido na linha " + line + " coluna " + column);
+            return "F";
+    }
+
+}
 
 let line = 1;
 
@@ -146,6 +189,13 @@ while(iterator < file.length){
                 column++;
                 continue;
             }
+
+            console.log(state);
+            state = 0;
+            console.log('erro na linha ' + line + ' coluna ' + column);
+            readString = "";
+            iterator++;
+            continue;
         
         case 1:
             if("ABCDEFGHIJKLMNOPQRSTUVWXYZ".includes(char)){
@@ -163,7 +213,8 @@ while(iterator < file.length){
             
         case 2: // final
             state = 0;
-            tokens.push(readString);
+            readString = keyType(readString, line, column);
+            if(readString !== "F") tokens.push(readString);
             readString = "";
             continue;
 
@@ -217,7 +268,7 @@ while(iterator < file.length){
 
         case 5: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push("int");
             readString = "";
             continue;
 
@@ -237,13 +288,21 @@ while(iterator < file.length){
 
         case 7: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push("id");
             readString = "";
             continue;
 
         case 8: 
             if(".".includes(char)){
                 state = 6;
+                readString += char;
+                iterator++;
+                column++;
+                continue;
+            }
+
+            if("0123456789".includes(char)){
+                state = 8;
                 readString += char;
                 iterator++;
                 column++;
@@ -282,7 +341,8 @@ while(iterator < file.length){
 
         case 10: // final
             state = 0;
-            tokens.push(readString);
+            readString = varType(readString, line, column);
+            if(readString !== "F") tokens.push("tp");
             readString = "";
             continue;
 
@@ -320,7 +380,7 @@ while(iterator < file.length){
 
         case 13: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push("ch");
             readString = "";
             continue;   
 
@@ -349,13 +409,13 @@ while(iterator < file.length){
 
         case 16: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push(readString.at(readString.length-1));
             readString = "";
             continue; 
 
         case 17: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push(readString.at(readString.length-1));
             readString = "";
             continue; 
         
@@ -378,7 +438,7 @@ while(iterator < file.length){
 
         case 19: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push("str");
             readString = "";
             continue; 
 
@@ -396,13 +456,13 @@ while(iterator < file.length){
 
         case 22: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push("log");
             readString = "";
             continue; 
 
         case 23: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push("rel");
             readString = "";
             continue; 
         
@@ -444,7 +504,7 @@ while(iterator < file.length){
 
         case 27: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push("ft");
             readString = "";
             continue; 
 

@@ -7,6 +7,8 @@
  -> Operadores lógicos, relacionais e aritméticos
 
 
+Nome = #Monolith
+
 Tipos = Integer, Float, Char
 
 Variáveis = nomes somente letras maiúsculas.
@@ -56,7 +58,7 @@ Operadores:
 
     Identificador   id      (A-Z)+ 
 
-    Tipo            tp      _(A-Z)(a-z)*_ Integer, Float, Char
+    Tipo            tp      _(A-Z)(a-z)*_ int, ft, ch
 
     Integer         int     (0-9)+
 
@@ -118,11 +120,11 @@ GLC ==
 
  _print_ "Teste de linguagem";
 
- _if_ 10 < VAR $> 
+ _if_ 10 << VAR $> 
  _print_ "Variável maior que dez";
  <$;
 
- _repeater_ 10 < VAR $>
+ _repeater_ 10 << VAR $>
  VAR = VAR - 10;
  <$;
 
