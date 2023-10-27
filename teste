@@ -10,8 +10,8 @@ CARACTERE = 'c';
 _print_ "Teste de linguagem";
 
 _if_ 10 << VAR $> 
-    _print_ "Variável maior que dez";
-$<;
+    _print_ "Variável maior que dez;
+$;
 
 _repeater_ 10 << VAR $>
     VAR = VAR - 10;

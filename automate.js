@@ -436,6 +436,13 @@ while(iterator < file.length){
                 continue;
             }
 
+        // faltou erro
+            console.log(state);
+            state = 0;
+            console.log('erro na linha ' + line + ' coluna ' + column);
+            readString = "";
+            continue;
+
         case 19: // final
             state = 0;
             tokens.push("str");
