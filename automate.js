@@ -6,6 +6,8 @@ let file = fs.readFileSync(process.argv[2], "utf-8");
 
 let tokens = [];
 
+let type;
+
 let state = 0;
 
 let readString = "";
@@ -213,8 +215,11 @@ while(iterator < file.length){
             
         case 2: // final
             state = 0;
-            readString = keyType(readString, line, column);
-            if(readString !== "F") tokens.push(readString);
+            type = keyType(readString, line, column);
+            if(type !== "F"){
+                let member = [readString, type, line, column]
+                tokens.push(member);
+            }    
             readString = "";
             continue;
 
@@ -268,7 +273,7 @@ while(iterator < file.length){
 
         case 5: // final
             state = 0;
-            tokens.push("int");
+            tokens.push([readString, "int", line, column]);
             readString = "";
             continue;
 
@@ -288,7 +293,7 @@ while(iterator < file.length){
 
         case 7: // final
             state = 0;
-            tokens.push("id");
+            tokens.push([readString, "id", line, column]);
             readString = "";
             continue;
 
@@ -341,8 +346,8 @@ while(iterator < file.length){
 
         case 10: // final
             state = 0;
-            readString = varType(readString, line, column);
-            if(readString !== "F") tokens.push("tp");
+            type = varType(readString, line, column);
+            if(type !== "F") tokens.push([readString, "tp", line, column]);
             readString = "";
             continue;
 
@@ -380,7 +385,7 @@ while(iterator < file.length){
 
         case 13: // final
             state = 0;
-            tokens.push("ch");
+            tokens.push([readString, "ch", line, column]);
             readString = "";
             continue;   
 
@@ -409,13 +414,13 @@ while(iterator < file.length){
 
         case 16: // final
             state = 0;
-            tokens.push(readString.at(readString.length-1));
+            tokens.push([readString, readString.at(readString.length-1), line, column]);
             readString = "";
             continue; 
 
         case 17: // final
             state = 0;
-            tokens.push(readString.at(readString.length-1));
+            tokens.push([readString, readString.at(readString.length-1), line, column]);
             readString = "";
             continue; 
         
@@ -445,37 +450,37 @@ while(iterator < file.length){
 
         case 19: // final
             state = 0;
-            tokens.push("str");
+            tokens.push([readString, "str", line, column]);
             readString = "";
             continue; 
 
         case 20: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push([readString, readString, line, column]);
             readString = "";
             continue; 
             
         case 21: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push([readString, readString, line, column]);
             readString = "";
             continue; 
 
         case 22: // final
             state = 0;
-            tokens.push("log");
+            tokens.push([readString, "log", line, column]);
             readString = "";
             continue; 
 
         case 23: // final
             state = 0;
-            tokens.push("rel");
+            tokens.push([readString, "rel", line, column]);
             readString = "";
             continue; 
         
         case 24: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push([readString, readString, line, column]);
             readString = "";
             continue; 
 
@@ -511,13 +516,13 @@ while(iterator < file.length){
 
         case 27: // final
             state = 0;
-            tokens.push("ft");
+            tokens.push([readString, "ft", line, column]);
             readString = "";
             continue; 
 
         case 28: // final
             state = 0;
-            tokens.push(readString);
+            tokens.push([readString, readString, line, column]);
             readString = "";
             continue; 
 
