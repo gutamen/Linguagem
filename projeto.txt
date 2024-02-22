@@ -76,7 +76,7 @@ Operadores:
 
     Aritméticos     ari     (+-/*)
 
-    declaração      =     (=)
+    declaração      =       (=)
 
     Lógicos         log     (::,&&,||,!!)
 
@@ -94,7 +94,12 @@ GLC ==
 
     <atribuicao> -> id = <multi> | id = ch
 
-    <multi> -> <termo> | <expressao> + <termo> | <expressao> - <termo> | <expressao> * <termo> | <expressao> / <termo> | <multi> * <termo> | <multi> / <termo>  
+    <multi> -> <termo> <multi-linha> | <expressao> + <termo> <multi-linha> | <expressao> - <termo> <multi-linha> | <expressao> * <termo> <multi-linha> | <expressao> / <termo> <multi-linha> 
+    
+    <multi-linha> -> * <termo> <multi-linha> | / <termo> <multi-linha>
+
+    ANTIGO --> <multi> -> <termo> | <expressao> + <termo> | <expressao> - <termo> | <expressao> * <termo> | <expressao> / <termo> | <multi> * <termo> | <multi> / <termo>  
+
 
     <expressao> -> <termo> | <expressao> + <termo> | <expressao> - <termo> 
 
@@ -104,9 +109,9 @@ GLC ==
     
     <impressao> -> id | str
 
-    <sera> ->  <multi> log <logrel> > <declaracoes> < | <multi> rel <logrel> > <declaracoes> < | 
+    <sera> ->  <multi> log <log-rel> > <declaracoes> < | <multi> rel <log-rel> > <declaracoes> < | 
 
-    <logrel> -> <multi> | <multi> log <multi> | <multi> rel <multi> | <multi> log <logrel> | <multi> rel <logrel> 
+    <log-rel> -> <multi> | <multi> log <multi> | <multi> rel <multi> | <multi> log <log-rel> | <multi> rel <log-rel> 
 
 }
 
