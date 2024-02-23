@@ -94,24 +94,32 @@ GLC ==
 
     <atribuicao> -> id = <multi> | id = ch
 
-    <multi> -> <termo> <multi-linha> | <expressao> + <termo> <multi-linha> | <expressao> - <termo> <multi-linha> | <expressao> * <termo> <multi-linha> | <expressao> / <termo> <multi-linha> 
+    <multi> -> <termo> <multi-linha> | <expressao> <tipo-expressao>
     
-    <multi-linha> -> * <termo> <multi-linha> | / <termo> <multi-linha>
+    <multi-linha> -> * <termo> <multi-linha> | / <termo> <multi-linha> | ε
 
-    ANTIGO --> <multi> -> <termo> | <expressao> + <termo> | <expressao> - <termo> | <expressao> * <termo> | <expressao> / <termo> | <multi> * <termo> | <multi> / <termo>  
+    <tipo-expressao> -> + <termo> <multi-linha> | - <termo> <multi-linha> | * <termo> <multi-linha> | / <termo> <multi-linha> 
 
+    <expressao> -> <termo> <expressao-linha> 
 
-    <expressao> -> <termo> | <expressao> + <termo> | <expressao> - <termo> 
+    <expressao-linha> -> + <termo> <expressao-linha> | - <termo> <expressao-linha> | ε 
 
     <termo> -> id | int | ft
 
-    <funcao> -> repeater <sera> | if <sera> | for int , int , id > <declaracoes> < | print <impressao> | reader <termo> | reader ch 
+    <funcao> -> repeater <sera> | if <sera> | for int , int , id > <declaracoes> < | print <impressao> | reader id 
     
     <impressao> -> id | str
 
-    <sera> ->  <multi> log <log-rel> > <declaracoes> < | <multi> rel <log-rel> > <declaracoes> < | 
+    <sera> ->  <multi> <sera-var>
 
-    <log-rel> -> <multi> | <multi> log <multi> | <multi> rel <multi> | <multi> log <log-rel> | <multi> rel <log-rel> 
+    <sera-var> ->  log <log-rel> > <declaracoes> < | rel <log-rel> > <declaracoes> <  
+
+    <log-rel> -> <multi> <log-rel-var>
+
+    <log-rel-var> -> log <logic-var> | rel <logic-var> | ε 
+
+    <logic-var> -> <multi> | <log-rel> 
+
 
 }
 
