@@ -122,6 +122,47 @@ GLC ==
 
 }
 
+First:
+    <programa>          --> ;, new, id, repeater, if, for, print, reader 
+    <declaracoes>       --> ε, new, id, repeater, if, for, print, reader 
+    <declaracao>        --> new, id, repeater, if, for, print, reader
+    <declaracao-tipo>   --> new
+    <atribuicao>        --> id
+    <multi>             --> id, int, ft 
+    <multi-linha>       --> ε, *, /
+    <tipo-expressao>    --> *, +, -, / 
+    <expressao>         --> id, int, ft
+    <expressao-linha>   --> ε, +, -
+    <termo>             --> id, int, ft
+    <funcao>            --> repeater, if, for, print, reader
+    <impressao>         --> id, str
+    <sera>              --> id, int, ft
+    <sera-var>          --> log, rel
+    <log-rel>           --> id, int, ft
+    <log-rel-var>       --> log, rel, ε 
+    <logic-var>         --> id, int, ft
+
+
+Follow:
+    <programa>          --> $  
+    <declaracoes>       --> ;, <
+    <declaracao>        --> ;
+    <declaracao-tipo>   --> ; 
+    <atribuicao>        --> ;
+    <multi>             -->  
+    <multi-linha>       -->
+    <tipo-expressao>    --> 
+    <expressao>         --> 
+    <expressao-linha>   --> 
+    <termo>             --> 
+    <funcao>            --> 
+    <impressao>         --> 
+    <sera>              --> 
+    <sera-var>          --> 
+    <log-rel>           --> 
+    <log-rel-var>       -->  
+    <logic-var>         --> 
+
  Exemplo:
 
  _new_ _Integer_ TESTE; 
