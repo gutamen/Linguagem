@@ -149,7 +149,7 @@ Follow:
     <declaracao>        --> ;
     <declaracao-tipo>   --> ; 
     <atribuicao>        --> ;
-    <multi>             -->  
+    <multi>             --> ;,  
     <multi-linha>       -->
     <tipo-expressao>    --> 
     <expressao>         --> 
