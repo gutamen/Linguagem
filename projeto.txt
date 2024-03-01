@@ -149,19 +149,19 @@ Follow:
     <declaracao>        --> ;
     <declaracao-tipo>   --> ; 
     <atribuicao>        --> ;
-    <multi>             --> ;,  
-    <multi-linha>       -->
-    <tipo-expressao>    --> 
-    <expressao>         --> 
-    <expressao-linha>   --> 
-    <termo>             --> 
-    <funcao>            --> 
-    <impressao>         --> 
-    <sera>              --> 
-    <sera-var>          --> 
-    <log-rel>           --> 
-    <log-rel-var>       -->  
-    <logic-var>         --> 
+    <multi>             --> ;, log, rel, >
+    <multi-linha>       --> ;, log, rel, >
+    <tipo-expressao>    --> ;, log, rel, >
+    <expressao>         --> ;, log, rel, >
+    <expressao-linha>   --> ;, log, rel, >
+    <termo>             --> ;, log, rel, >
+    <funcao>            --> ;
+    <impressao>         --> ;
+    <sera>              --> ;
+    <sera-var>          --> ;
+    <log-rel>           --> >
+    <log-rel-var>       --> >
+    <logic-var>         --> >
 
  Exemplo:
 
