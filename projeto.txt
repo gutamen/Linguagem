@@ -134,7 +134,7 @@ First:
     <termo>             --> id, int, ft
     <funcao>            --> repeater, if, for, print, reader
     <impressao>         --> id, str
-    <multi-char>	--> id, int, ft, char
+    <multi-char>	    --> id, int, ft, char
     <sera>              --> id, int, ft
     <sera-var>          --> log, rel
     <log-rel>           --> id, int, ft
