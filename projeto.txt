@@ -92,7 +92,9 @@ GLC ==
 
     <declaracao-tipo> -> new tp id
 
-    <atribuicao> -> id = <multi> | id = ch
+    <atribuicao> -> id = <tipo-atribuicao>
+
+    <tipo-atribuicao> -> <multi> | ch
 
     <multi> -> <termo> <multi-linha> | <expressao> <tipo-expressao>
     
@@ -128,6 +130,7 @@ First:
     <declaracao>        --> new, id, repeater, if, for, print, reader
     <declaracao-tipo>   --> new
     <atribuicao>        --> id
+    <tipo-atribuicao>   --> ch, id, int, ft
     <multi>             --> id, int, ft 
     <multi-linha>       --> ε, *, /
     <tipo-expressao>    --> *, +, -, / 
@@ -149,6 +152,7 @@ Follow:
     <declaracao>        --> ;
     <declaracao-tipo>   --> ; 
     <atribuicao>        --> ;
+    <tipo-atribuicao>   --> ;
     <multi>             --> ;, log, rel, >
     <multi-linha>       --> ;, log, rel, >
     <tipo-expressao>    --> ;, log, rel, >
