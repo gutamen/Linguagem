@@ -96,15 +96,11 @@ GLC ==
 
     <tipo-atribuicao> -> <multi> | ch
 
-    <multi> -> <termo> <multi-linha> | <expressao> <tipo-expressao>
+    <multi> -> <termo> <tipo-expressao>
     
     <multi-linha> -> * <termo> <multi-linha> | / <termo> <multi-linha> | ε
 
-    <tipo-expressao> -> + <termo> <multi-linha> | - <termo> <multi-linha> | * <termo> <multi-linha> | / <termo> <multi-linha> 
-
-    <expressao> -> <termo> <expressao-linha> 
-
-    <expressao-linha> -> + <termo> <expressao-linha> | - <termo> <expressao-linha> | ε 
+    <tipo-expressao> -> + <termo> <tipo-expressao> | - <termo> <tipo-expressao> | * <termo> <multi-linha> | / <termo> <multi-linha> | ε
 
     <termo> -> id | int | ft
 
@@ -112,15 +108,16 @@ GLC ==
     
     <impressao> -> id | str
 
-    <sera> ->  <multi> <sera-var>
+    <multi-char> <multi> | ch
+
+    <sera> ->  <multi-char> <sera-var>
 
     <sera-var> ->  log <log-rel> > <declaracoes> < | rel <log-rel> > <declaracoes> <  
 
-    <log-rel> -> <multi> <log-rel-var>
+    <log-rel> -> <multi-char> <log-rel-var>  
 
-    <log-rel-var> -> log <logic-var> | rel <logic-var> | ε 
+    <log-rel-var> -> log <multi-char> <log-rel-var> | rel <multi-char> <log-rel-var> | ε 
 
-    <logic-var> -> <multi> | <log-rel> 
 
 }
 
@@ -133,17 +130,15 @@ First:
     <tipo-atribuicao>   --> ch, id, int, ft
     <multi>             --> id, int, ft 
     <multi-linha>       --> ε, *, /
-    <tipo-expressao>    --> *, +, -, / 
-    <expressao>         --> id, int, ft
-    <expressao-linha>   --> ε, +, -
+    <tipo-expressao>    --> ε, *, +, -, / 
     <termo>             --> id, int, ft
     <funcao>            --> repeater, if, for, print, reader
     <impressao>         --> id, str
+    <multi-char>	--> id, int, ft, char
     <sera>              --> id, int, ft
     <sera-var>          --> log, rel
     <log-rel>           --> id, int, ft
     <log-rel-var>       --> log, rel, ε 
-    <logic-var>         --> id, int, ft
 
 
 Follow:
@@ -156,16 +151,14 @@ Follow:
     <multi>             --> ;, log, rel, >
     <multi-linha>       --> ;, log, rel, >
     <tipo-expressao>    --> ;, log, rel, >
-    <expressao>         --> ;, log, rel, >
-    <expressao-linha>   --> ;, log, rel, >
     <termo>             --> ;, log, rel, >
     <funcao>            --> ;
     <impressao>         --> ;
+    <multi-char>	--> log, rel, >
     <sera>              --> ;
     <sera-var>          --> ;
     <log-rel>           --> >
     <log-rel-var>       --> >
-    <logic-var>         --> >
 
  Exemplo:
 
