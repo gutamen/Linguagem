@@ -94,7 +94,7 @@ GLC ==
 
     <atribuicao> -> id = <tipo-atribuicao>
 
-    <tipo-atribuicao> -> <multi> | ch
+    <tipo-atribuicao> -> <multi-char>
 
     <multi> -> <termo> <tipo-expressao>
     
@@ -134,10 +134,10 @@ First:
     <termo>             --> id, int, ft
     <funcao>            --> repeater, if, for, print, reader
     <impressao>         --> id, str
-    <multi-char>	    --> id, int, ft, char
-    <sera>              --> id, int, ft
+    <multi-char>	    --> id, int, ft, ch
+    <sera>              --> id, int, ft, ch
     <sera-var>          --> log, rel
-    <log-rel>           --> id, int, ft
+    <log-rel>           --> id, int, ft, ch
     <log-rel-var>       --> log, rel, ε 
 
 
