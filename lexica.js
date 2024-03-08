@@ -58,17 +58,19 @@ let lexicaAnaliser = function(file){
 
 	let column = 1;
 
-	let iterator = 1;
+	let iterator = 0;
 
 	while(iterator < file.length){
 	   
-	    if((file.at(iterator) === ' ' || file.at(iterator) === '\n' || file.at(iterator) === '\r') && state != 18){
-		    if(file.at(iterator) === '\n'){
+	    let char = file.at(iterator);
+
+	    if((char === ' ' || char === '\n' || char === '\r') && state != 18 && state != 23 && state != 20 && state != 24 && state != 10 && state != 2 && state != 7 && state != 13 && state != 17 && state != 16 && state != 19 && state != 5 && state != 27 && state != 22 && state != 21){
+		    if(char === '\n'){
 		        line++;
 		        column = 1;
 		    }
 
-		    if(file.at(iterator) === ' '){
+		    if(char === ' '){
 		        column++;
 		    }
 
@@ -77,12 +79,6 @@ let lexicaAnaliser = function(file){
 	    }
 	    
 
-	    let char = file.at(iterator);
-	    /*console.log("//////////////")
-	    console.log(file.substring(iterator));
-	    console.log(iterator + " ola");
-	    console.log(state);
-	    console.log(char.charCodeAt());*/
 	    
 	    
 
@@ -526,7 +522,6 @@ let lexicaAnaliser = function(file){
 
         }
 
-        //iterator++;
         
 
     }

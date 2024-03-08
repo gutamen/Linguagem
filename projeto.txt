@@ -84,7 +84,7 @@ Operadores:
 
 GLC ==
 {
-    <programa> -> <declaracoes> ;
+    <programa> -> <declaracoes> 
 
     <declaracoes> -> <declaracao> ; <declaracoes> | ε
 
@@ -143,7 +143,7 @@ First:
 
 Follow:
     <programa>          --> $  
-    <declaracoes>       --> ;, <
+    <declaracoes>       --> ;, <, $
     <declaracao>        --> ;
     <declaracao-tipo>   --> ; 
     <atribuicao>        --> ;

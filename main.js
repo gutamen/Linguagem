@@ -8,6 +8,7 @@ const sintaticTopDown = require('./sintatic.js');
 
 let tokens = lexicaAnaliser(file);
 
+//console.log(tokens);
 
 sintaticTopDown(tokens);
 

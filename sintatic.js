@@ -1,11 +1,9 @@
 
-let sintaticTopDown = function(tokens){
+let sintaticTopDown = async function(tokens){
     let stack = [];
     stack.push("$", "<programa>");
     tokens.push(["","$", 0, 0]);
     
-    
-//    console.log(tokens);
 
     while(true){
         let stackTop = stack[stack.length - 1];
@@ -21,42 +19,43 @@ let sintaticTopDown = function(tokens){
                     switch(tokenFirst){
                         case ";":
                             stack.pop();
-                            stack.push(";", "<declaracoes>");
+                            stack.push("<declaracoes>");
                             break;
 
                         case "new":
                             stack.pop();
-                            stack.push(";", "<declaracoes>");
+                            stack.push("<declaracoes>");
+                            stack.push("<declaracoes>");
                             break;
 
                         case "id":
                             stack.pop();
-                            stack.push(";", "<declaracoes>");
+                            stack.push("<declaracoes>");
                             break;
 
                         case "repeater":
                             stack.pop();
-                            stack.push(";", "<declaracoes>");
+                            stack.push("<declaracoes>");
                             break;
 
                         case "if":
                             stack.pop();
-                            stack.push(";", "<declaracoes>");
+                            stack.push("<declaracoes>");
                             break;
 
                         case "for":
                             stack.pop();
-                            stack.push(";", "<declaracoes>");
+                            stack.push("<declaracoes>");
                             break;
 
                         case "print":
                             stack.pop();
-                            stack.push(";", "<declaracoes>");
+                            stack.push("<declaracoes>");
                             break;
 
                         case "reader":
                             stack.pop();
-                            stack.push(";", "<declaracoes>");
+                            stack.push("<declaracoes>");
                          break;
 
 
@@ -107,6 +106,10 @@ let sintaticTopDown = function(tokens){
                             break;
                         
                         case "<":
+                            stack.pop();
+                            break;
+
+                        case "$":
                             stack.pop();
                             break;
 
@@ -452,22 +455,22 @@ let sintaticTopDown = function(tokens){
                     switch(tokenFirst){
                         case "id":
                             stack.pop();
-                            stack.push("<log-rel>", "<multi-char>");
+                            stack.push("<log-rel-var>", "<multi-char>");
                             break;
 
                          case "ch":
                             stack.pop();
-                            stack.push("<log-rel>", "<multi-char>");
+                            stack.push("<log-rel-var>", "<multi-char>");
                             break;
 
                         case "int":
                             stack.pop();
-                            stack.push("<log-rel>", "<multi-char>");
+                            stack.push("<log-rel-var>", "<multi-char>");
                             break;
 
                         case "ft":
                             stack.pop();
-                            stack.push("<log-rel>", "<multi-char>");
+                            stack.push("<log-rel-var>", "<multi-char>");
                             break;
 
                         default:
@@ -501,10 +504,21 @@ let sintaticTopDown = function(tokens){
             }
         }
         else{ // é um terminal
-        }
+            if(tokenFirst === stackTop){
+                stack.pop();
+                tokens.shift();
+            }
 
-        break;
+        }
+        
+        //console.log(stack);
+        //console.log(tokens);
+        await delay(500);
     }        
+}
+
+function delay(ms){
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 module.exports = sintaticTopDown;
