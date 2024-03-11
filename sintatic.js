@@ -3,7 +3,15 @@ let sintaticTopDown = async function(tokens){
     let stack = [];
     stack.push("$", "<programa>");
     tokens.push(["","$", 0, 0]);
-    let errorCount = 0; 
+    let errorCount = 0;
+
+    let sintaxErrorPrint = function (string, line, column){
+        console.log("--- ERRO SINTÁTICO ---");
+        console.log("Linha == ", line);
+        console.log("Posição == ", column);
+        console.log(string);
+        console.log();
+    }
 
     while(true){
         if(tokens.length == 0){
@@ -66,11 +74,7 @@ let sintaticTopDown = async function(tokens){
 
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Não faz sentido", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -127,11 +131,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Não faz sentido", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
