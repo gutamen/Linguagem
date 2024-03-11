@@ -1,3 +1,4 @@
+const { error } = require("console");
 
 
 let lexicaAnaliser = function(file){
@@ -6,9 +7,21 @@ let lexicaAnaliser = function(file){
 
 	let type;
 
+    let operator;
+
+    let errorCount = 0;
+
 	let state = 0;
 
 	let readString = "";
+
+    let lexicalErrorPrint = function(string, line, column){
+            console.log("--- ERRO LÉXICO ---")
+		    console.log(string);
+            console.log("Linha ==" + line);
+            console.log("Posição ==" + column);    
+            console.log();
+    }
 
 	let keyType = function(compare, line, column) {
 	    
@@ -32,12 +45,43 @@ let lexicaAnaliser = function(file){
 		    return "reader";
 
 		default:
-		    console.log("Função não reconhecida na linha " + line + " coluna " + column);
+		    lexicalErrorPrint("Função não reconhecida", line, column);
+            errorCount++;
 		    return "F";
 
 	    }
 
 	}
+
+    let operatorType = function(compare, line, column){
+        switch (compare) {
+            case ">>":
+                return "rel";
+
+            case "<<":
+                return "rel";
+
+            case "||":
+                return "log";
+
+            case "&&":
+                return "log";
+
+            case "::":
+                return "log";
+            
+            case "!!":
+                return "log";
+
+            default:
+                lexicalErrorPrint("Operador inválido", line, column);
+                errorCount++;
+                break;
+        }
+
+        
+        return "F";
+    }
 
 	let varType = function(compare, line, column){
 	    switch(compare){
@@ -48,7 +92,8 @@ let lexicaAnaliser = function(file){
 		case "_Float":
 		    return "ft";
 		default:
-		    console.log("Tipo não reconhecido na linha " + line + " coluna " + column);
+		    lexicalErrorPrint("Tipo não reconhecido", line, column);
+            errorCount++;
 		    return "F";
 	    }
 
@@ -186,9 +231,10 @@ let lexicaAnaliser = function(file){
 		        continue;
 		    }
 
-		    console.log(state);
+//		    console.log(state);
 		    state = 0;
-		    console.log('erro na linha ' + line + ' coluna ' + column);
+		    lexicalErrorPrint("Não combina com nenhum início de token", line, column);
+            errorCount++;
 		    readString = "";
 		    iterator++;
 		    continue;
@@ -236,9 +282,10 @@ let lexicaAnaliser = function(file){
 		        continue;
 		    }
 
-		    console.log(state);
+//		    console.log(state);
 		    state = 0;
-		    console.log('erro na linha ' + line + ' coluna ' + column);
+		    lexicalErrorPrint("Esperado mais caracteres minúsculos ou underline", line, column);
+            errorCount++;
 		    readString = "";
 		    continue;
 
@@ -259,9 +306,9 @@ let lexicaAnaliser = function(file){
 		        continue;
 		    }
 
-		    console.log(state);
+//		    console.log(state);
 		    state = 0;
-		    console.log('erro na linha ' + line + ' coluna ' + column);
+		    lexicalErrorPrint('Esperado caracteres maiúsculos ou minúsculos', line, column);
 		    readString = "";
 		    continue;
 
@@ -332,9 +379,10 @@ let lexicaAnaliser = function(file){
 		        continue;
 		    }
 
-		    console.log(state);
+//		    console.log(state);
 		    state = 0;
-		    console.log('erro na linha ' + line + ' coluna ' + column);
+		    lexicalErrorPrint('Esperado caracteres minúsculos ou underline', line, column);
+            errorCount++;
 		    readString = "";
 		    continue;
 
@@ -356,7 +404,8 @@ let lexicaAnaliser = function(file){
 
 		    console.log(state);
 		    state = 0;
-		    console.log('erro na linha ' + line + ' coluna ' + column);
+		    lexicalErrorPrint('Esperado caractere maiúsculo ou minúsculo', line, column);
+            errorCount++;
 		    readString = "";
 		    continue;
 
@@ -373,7 +422,8 @@ let lexicaAnaliser = function(file){
 
 		    console.log(state);
 		    state = 0;
-		    console.log('erro na linha ' + line + ' coluna ' + column);
+		    lexicalErrorPrint('Esperado aspas simples', line, column);
+            errorCount++;
 		    readString = "";
 		    continue;
 
@@ -400,9 +450,10 @@ let lexicaAnaliser = function(file){
 		        continue;
 		    }
 
-		    console.log(state);
+//		    console.log(state);
 		    state = 0;
-		    console.log('erro na linha ' + line + ' coluna ' + column);
+		    lexicalErrorPrint("Esperado '<' ou '>'", line, column);
+            errorCount++;
 		    readString = "";
 		    continue;
 
@@ -435,10 +486,9 @@ let lexicaAnaliser = function(file){
 		        continue;
 		    }
 
-		// faltou erro
-		    console.log(state);
+//		    console.log(state);
 		    state = 0;
-		    console.log('erro na linha ' + line + ' coluna ' + column);
+		    lexicalErrorPrint('Esperado string de caracteres ou aspas duplas', line, column);
 		    readString = "";
 		    continue;
 
@@ -462,13 +512,19 @@ let lexicaAnaliser = function(file){
 
 		case 22: // final
 		    state = 0;
-		    tokens.push([readString, "log", line, column]);
+            operator = operatorType(readString, line, column);
+            if(operator !== "F"){
+		        tokens.push([readString, operator, line, column]);
+            }
 		    readString = "";
 		    continue; 
 
 		case 23: // final
 		    state = 0;
-		    tokens.push([readString, "rel", line, column]);
+            operator = operatorType(readString, line, column);
+            if(operator !== "F"){
+		        tokens.push([readString, operator, line, column]);
+            }              
 		    readString = "";
 		    continue; 
 		
@@ -487,9 +543,10 @@ let lexicaAnaliser = function(file){
 		        continue;
 		    }
 
-		    console.log(state);
+//		    console.log(state);
 		    state = 0;
-		    console.log('erro na linha ' + line + ' coluna ' + column);
+		    lexicalErrorPrint('Esperado "|", "$", ":", ":"', line, column);
+            errorCount++;
 		    readString = "";
 		    continue;
 		
@@ -502,9 +559,10 @@ let lexicaAnaliser = function(file){
 		        continue;
 		    }
 
-		    console.log(state);
+//		    console.log(state);
 		    state = 0;
-		    console.log('erro na linha ' + line + ' coluna ' + column);
+		    lexicalErrorPrint('Esperado ">" ou "<"', line, column);
+            errorCount++;
 		    readString = "";
 		    continue;
 
@@ -525,6 +583,8 @@ let lexicaAnaliser = function(file){
         
 
     }
+    
+    console.log("Análise lexica concluída com um total de " + errorCount + " erros.");
 
     return tokens;
 
