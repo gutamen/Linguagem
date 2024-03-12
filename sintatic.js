@@ -74,7 +74,7 @@ let sintaticTopDown = async function(tokens){
 
 
                         default:
-                            sintaxErrorPrint("Não faz sentido", tokens[0][2], tokens[0][3]);
+                            sintaxErrorPrint("Esperado função, declaração, atribuição ou fim de linha", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -131,7 +131,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            sintaxErrorPrint("Não faz sentido", tokens[0][2], tokens[0][3]);
+                            sintaxErrorPrint("Esperado função, declaração, atribuição ou fim de linha", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -176,11 +176,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado função, atribuição ou declaração", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -195,11 +191,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado uma declação", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -214,11 +206,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado uma atribuição", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -248,11 +236,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado um valor, caractere ou variável", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -277,11 +261,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado valor ou variável", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -317,11 +297,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado operador, fim de linha ou começo de bloco", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -367,11 +343,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado operador, fim de linha ou começo de bloco", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -396,11 +368,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado um valor ou uma variável", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -435,11 +403,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado uma função", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -459,11 +423,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado uma variável ou uma string", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -493,11 +453,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado um valor, uma variável ou um caractere", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -527,11 +483,7 @@ let sintaticTopDown = async function(tokens){
                             break;
                         
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado um valor, uma variável ou um caractere", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -551,11 +503,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado um operador lógico ou relacional", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -585,11 +533,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado um valor, uma variável ou um caractere", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -613,11 +557,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            console.log("--- ERRO SINTÁTICO ---");
-                            console.log("Linha == ", tokens[0][2]);
-                            console.log("Posição == ", tokens[0][3]);
-                            console.log("Não faz sentido");
-                            console.log();
+                            sintaxErrorPrint("Esperado um operador lógico ou relacional, ou fim de bloco", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
@@ -625,7 +565,7 @@ let sintaticTopDown = async function(tokens){
                     break;
 
                 default:
-                    console.log("Erro: não terminal não existe, ou não foi colocado")
+                    console.log("Erro: não terminal não existe, ou não foi colocado")   // Esse erro a princípio é inalcançável
             }
         }
         else{ // é um terminal
@@ -637,11 +577,95 @@ let sintaticTopDown = async function(tokens){
                 console.log("Código análisado com ", errorCount, " erros");
                 break;
             }else{
-                console.log("--- ERRO SINTÁTICO ---");
-                console.log("Linha == ", tokens[0][2]);
-                console.log("Posição == ", tokens[0][3]);
-                console.log("Não faz sentido");
-                console.log();
+                switch(stackTop){
+                    case "new":
+                        sintaxErrorPrint("Esperado flag '_new_'", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "tp":
+                        sintaxErrorPrint("Esperado tipo de variável", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "id":
+                        sintaxErrorPrint("Esperado variável", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "=":
+                        sintaxErrorPrint("Esperado indicador de atribuição '='", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "*":
+                        sintaxErrorPrint("Esperado operador", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "/":
+                        sintaxErrorPrint("Esperado operador", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "+":
+                        sintaxErrorPrint("Esperado operador", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "-":
+                        sintaxErrorPrint("Esperado operador", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "ft":
+                        sintaxErrorPrint("Esperado ponto flutuante", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "int":
+                        sintaxErrorPrint("Esperado valor inteiro", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "ch":
+                        sintaxErrorPrint("Esperado caraactere", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "str":
+                        sintaxErrorPrint("Esperado string", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "repeater":
+                        sintaxErrorPrint("Esperado função", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "if":
+                        sintaxErrorPrint("Esperado função", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "for":
+                        sintaxErrorPrint("Esperado função", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "print":
+                        sintaxErrorPrint("Esperado função", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "reader":
+                        sintaxErrorPrint("Esperado função", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case ",":
+                        sintaxErrorPrint("Esperado vígurla ','", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case ">":
+                        sintaxErrorPrint("Esperado abertura de bloco '$>'", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "<":
+                        sintaxErrorPrint("Esperado fechamento de bloco '<$'", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "log":
+                        sintaxErrorPrint("Esperado operador lógico", tokens[0][2], tokens[0][3]);
+                        break;
+
+                    case "rel":
+                        sintaxErrorPrint("Esperado operador relacional", tokens[0][2], tokens[0][3]);
+                        break;
+                }
                 removeLineError(tokens);
                 stack = ["$", "<programa>"];
                 errorCount++;
