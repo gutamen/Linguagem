@@ -1,0 +1,3 @@
+_if_ 10 << VAR $> 
+    _print_ "Variável maior que dez";
+$<;

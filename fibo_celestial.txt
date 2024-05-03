@@ -1,0 +1,41 @@
+t0: i32 = 0
+t1: i32 = 1
+t2: i32 = 1
+
+t3: i32 = call read_int()
+ 
+if t3 == 0 goto l1
+if t3 == 1 goto l2
+if t3 <  0 goto l3
+goto l4
+
+l1:
+    t2: i32 = 0
+    goto print
+
+l2:
+    t2: i32 = 1
+    goto print
+
+l4:
+    t4: i32 = 1
+    loop:
+        t2: i32 = t0 + t1
+        t0: i32 = t1
+        t1: i32 = t2
+        t4: i32 = t4 + 1
+        if t4 < t3 goto loop
+        
+        print:
+        call write_string("Fibonacci de ")
+        call write_int(t3)
+        call write_string(" == ")
+        call write_int(t2)
+        goto final
+
+
+l3:
+    call write_string("ERRO: Número negativo")
+
+final:
+

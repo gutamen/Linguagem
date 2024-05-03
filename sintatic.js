@@ -578,6 +578,10 @@ let sintaticTopDown = async function(tokens){
                 break;
             }else{
                 switch(stackTop){
+                    case ";":
+                        sintaxErrorPrint("Finalização de linha ';'", tokens[0][2], tokens[0][3]);
+                        break;
+
                     case "new":
                         sintaxErrorPrint("Esperado flag '_new_'", tokens[0][2], tokens[0][3]);
                         break;
