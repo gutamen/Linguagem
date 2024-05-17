@@ -96,11 +96,11 @@ GLC ==
 
     <tipo-atribuicao> -> <multi-char>
 
-    <multi> -> <termo> <tipo-expressao>
+    <multi> -> <termo> <multi-linha>
     
     <multi-linha> -> * <termo> <multi-linha> | / <termo> <multi-linha> | + <termo> <tipo-expressao> | - <termo> <tipo-expressao> | ε
 
-    <tipo-expressao> -> + <termo> <tipo-expressao> | - <termo> <tipo-expressao> | * <termo> <multi-linha> | / <termo> <multi-linha> | ε
+    <tipo-expressao> -> + <termo> <tipo-expressao> | - <termo> <tipo-expressao> | ε
 
     <termo> -> id | int | ft
 
