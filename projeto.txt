@@ -98,7 +98,7 @@ GLC ==
 
     <multi> -> <termo> <tipo-expressao>
     
-    <multi-linha> -> * <termo> <multi-linha> | / <termo> <multi-linha> | ε
+    <multi-linha> -> * <termo> <multi-linha> | / <termo> <multi-linha> | + <termo> <tipo-expressao> | - <termo> <tipo-expressao> | ε
 
     <tipo-expressao> -> + <termo> <tipo-expressao> | - <termo> <tipo-expressao> | * <termo> <multi-linha> | / <termo> <multi-linha> | ε
 

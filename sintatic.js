@@ -247,17 +247,17 @@ let sintaticTopDown = async function(tokens){
                     switch(tokenFirst){
                         case "id":
                             stack.pop();
-                            stack.push("<tipo-expressao>", "<termo>");
+                            stack.push("<multi-linha>", "<termo>");
                             break;
 
                         case "int":
                             stack.pop();
-                            stack.push("<tipo-expressao>", "<termo>");
+                            stack.push("<multi-linha>", "<termo>");
                             break;
 
                         case "ft":
                             stack.pop();
-                            stack.push("<tipo-expressao>", "<termo>");
+                            stack.push("<multi-linha>", "<termo>");
                             break;
 
                         default:
@@ -283,6 +283,16 @@ let sintaticTopDown = async function(tokens){
                             stack.pop();
                             stack.push("<multi-linha>", "<termo>", "/");
                             break;
+
+                        case "+":
+                            stack.pop();
+                            stack.push("<tipo-expressao>", "<termo>", "+");
+                            break;
+
+                        case "-":
+                            stack.pop();
+                            stack.push("<tipo-expressao>", "<termo>", "-");
+                            break;                       
 
                         case "log":
                             stack.pop();
@@ -310,6 +320,7 @@ let sintaticTopDown = async function(tokens){
                             stack.pop();
                             break;
 
+/*
                         case "*":
                             stack.pop();
                             stack.push("<multi-linha>", "<termo>", "*");
@@ -319,7 +330,7 @@ let sintaticTopDown = async function(tokens){
                             stack.pop();
                             stack.push("<multi-linha>", "<termo>", "/");
                             break;
- 
+ */
                         case "+":
                             stack.pop();
                             stack.push("<tipo-expressao>", "<termo>", "+");
@@ -343,7 +354,7 @@ let sintaticTopDown = async function(tokens){
                             break;
 
                         default:
-                            sintaxErrorPrint("Esperado operador, fim de linha ou começo de bloco", tokens[0][2], tokens[0][3]);
+                            sintaxErrorPrint("Esperado operador, fim de linha ou começo de bloco\nMultiplicação primeiro", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
                             stack = ["$", "<programa>"];
                             errorCount++;
