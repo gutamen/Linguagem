@@ -22,19 +22,19 @@ Construções = todos os construtores entre Underline _<construção>_
 _repeater_ <valor> <operador> <valor> $> <... linhas no laço ...> $<;
 Compara somente variáveis do mesmo tipo, repete enquanto for verdadeiro.
 
-_for_ <início> , <final> , <nova_varíavel_de_controle> $> <... linhas no laço ...> $<;
+_for_ <início> , <final> , <nova_variável_de_controle> $> <... linhas no laço ...> $<;
 Sempre adiciona +1, pode ser alterado dentro das linhas do laço
 
 _if_ <valor> <operador> <valor> $> <... linhas após codição ...> $<; 
-Compara somente varíaveis do mesmo tipo
+Compara somente variáveis do mesmo tipo
 
-_print_ <varíavel> || "String a ser escrita";
+_print_ <variável> || "String a ser escrita";
 Somente uma das opções
 
-_read_ <varível>;
-Lê do terminal e guarda na varíavel selecionada, para o programa
+_read_ <variável>;
+Lê do terminal e guarda na variável selecionada, para o programa
 
-Declaração de varíavel sempre com o _new_ <tipo> <nome>, podem ser decladas em qualquer lugar, porém a atribução deve ser feita em um próximo comando.
+Declaração de variável sempre com o _new_ <tipo> <nome>, podem ser decladas em qualquer lugar, porém a atribução deve ser feita em um próximo comando.
 
 Operadores:
     
@@ -90,9 +90,9 @@ GLC ==
 
     <declaracao> -> <atribuicao> | <declaracao-tipo> | <funcao>
 
-    <declaracao-tipo> -> new tp id
+    <declaracao-tipo> -> new tp id  {marcar nome e tipo de variável}
 
-    <atribuicao> -> id = <tipo-atribuicao>
+    <atribuicao> -> id = <tipo-atribuicao> {verificar tipo e colocar valor no tipo}
 
     <tipo-atribuicao> -> <multi-char>
 
