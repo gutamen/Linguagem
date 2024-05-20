@@ -1,9 +1,9 @@
 _new_ _Integer_ TESTE; 
 _new_ _Integer_ VAR;
 _new_ _Char_ CARACTERE;
+_new_ _Char_ CARACTERE;
 
 VAR = 10 * 1 + 1;
-JEGUE = 10 + 10 * 10;
 TESTE = 5;
 CARACTERE = 'c';
 

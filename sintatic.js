@@ -1,9 +1,14 @@
-
+const tableEntry = require("./tableEntry.js");
+ 
 let sintaticTopDown = async function(tokens){
     let stack = [];
     stack.push("$", "<programa>");
     tokens.push(["","$", 0, 0]);
+//    console.log(tokens);
+    let symbolTable = [];
     let errorCount = 0;
+    let semanticTime = false;
+    let semanticAnalysis = [];
 
     let sintaxErrorPrint = function (string, line, column){
         console.log("--- ERRO SINTÁTICO ---");
@@ -187,7 +192,9 @@ let sintaticTopDown = async function(tokens){
                     switch(tokenFirst){
                         case "new":
                             stack.pop();
-                            stack.push("id", "tp", "new");
+                            stack.push("[novaVariavel]", "id", "tp", "new");
+                            semanticTime = true;
+//                            stack.push("id", "tp", "new");
                             break;
 
                         default:
@@ -202,7 +209,9 @@ let sintaticTopDown = async function(tokens){
                     switch(tokenFirst){
                         case "id":
                             stack.pop();
-                            stack.push("<tipo-atribuicao>", "=", "id");
+                            stack.push("[verificaAtribuicao]", "<tipo-atribuicao>", "=", "id");
+                            semanticTime = true;
+//                            stack.push("<tipo-atribuicao>", "=", "id");
                             break;
 
                         default:
@@ -579,10 +588,30 @@ let sintaticTopDown = async function(tokens){
                     console.log("Erro: não terminal não existe, ou não foi colocado")   // Esse erro a princípio é inalcançável
             }
         }
-        else{ // é um terminal
+        else if(stackTop.includes("[") && stackTop.includes("]")){
+//            console.log(tokens);
+//            console.log();
+//            console.log(stack);
+            
+            if(!semanticProcess(stack[stack.length - 1], semanticAnalysis, symbolTable, errorCount)) errorCount++; 
+            semanticTime = false;
+            semanticAnalysis = [];
+            stack.pop();
+//            console.log(symbolTable);
+//            break;
+            
+            
+        }
+        else{ 
+            // é um terminal
             if(tokenFirst === stackTop && tokenFirst !== '$'){
                 stack.pop();
-                tokens.shift();
+                if(semanticTime){
+                    semanticAnalysis.push(tokens.shift());
+                }
+                else{
+                    tokens.shift();
+                }
             }
             else if(tokenFirst === '$' && stackTop === '$'){
                 console.log("Código análisado com ", errorCount, " erros");
@@ -694,11 +723,118 @@ let sintaticTopDown = async function(tokens){
     }        
 }
 
+function semanticErrorPrint(string, line, column){
+    console.log("--- ERRO SEMÂNTICO ---");
+    console.log("Linha == ", line);
+    console.log("Posição == ", column);
+    console.log(string);
+    console.log();
+    
+}
+
 function removeLineError(array){
     while(array[0][1] !== ';'){
         array.shift();
     }
     array.shift();
+}
+
+function haveVariableinSymbolTable(name, symbolTable){
+        let haveSymbol = false;
+
+        for(let i = 0; i < symbolTable.length; i++){
+            if(symbolTable[i].name === name){
+                haveSymbol = true;
+            }
+        }
+
+        return haveSymbol;
+}
+
+function semanticProcess(command, tokens, symbolTable){
+//    console.log(tokens);
+    if(command === "[novaVariavel]"){
+        let haveSymbol = haveVariableinSymbolTable(tokens[2][0], symbolTable);
+
+        if(!haveSymbol){
+            symbolTable.push(new tableEntry(tokens[2][0], tokens[1][0]));
+            return true;
+        }
+        else{
+            semanticErrorPrint("Nome de variável '" + tokens[2][0] + "' já declarado", tokens[2][2], tokens[2][3]); 
+            return false;
+        }
+    }
+    else if(command === "[verificaAtribuicao]"){
+//        console.log(tokens);
+        
+        let wantedType = null;
+        let haveSymbol = false;
+
+        for(let i = 0; i < symbolTable.length; i++){
+            if(symbolTable[i].name === tokens[0][0]){
+                haveSymbol = true;
+                wantedType = symbolTable[i].type;
+            }
+        }
+
+        if(!haveSymbol){
+            semanticErrorPrint("Variável '" + tokens[0][0] + "' não existe", tokens[0][2], tokens[0][3]);
+            return false;
+        }
+
+        if(wantedType === "_Char_"){
+            if(tokens.length > 3){
+                semanticErrorPrint("Parâmetros excessivos para declaração de caractere", tokens[0][2], tokens[0][3]);
+                return false;
+            }
+            else if(tokens[2][1] === "id"){
+                haveSymbol = false;
+                let attributeType = null;
+
+                for(let i = 0; i < symbolTable.length; i++){
+                    if(symbolTable[i].name === tokens[2][0]){
+                    haveSymbol = true;
+                    attributeType = symbolTable[i].type;
+                    }
+                }
+
+                if(!haveSymbol){
+                    semanticErrorPrint("Variável '" + tokens[2][0] + "' não existe", tokens[2][2], tokens[2][3]);
+                    return false;
+                }
+                else if(attributeType !== "_Char_"){
+                    semanticErrorPrint("Variável atribuída '" + tokens[2][0] + "' tem tipo diferente", tokens[2][2], tokens[2][3]);
+                    return false;
+                }
+
+                return true;
+                
+            }
+            else if(tokens[2][1] !== 'ch'){
+                semanticErrorPrint("Atribuição incorreta para '" + tokens[0][0] + "'", tokens[2][2], tokens[2][3]);
+                return false;
+            }
+
+            return true;
+
+        }
+        else if(wantedType === "_Integer_"){
+            let checkList = [];
+            for(let i = 2; i < tokens.length; i += 2){
+                if(tokens[i][1] !== "int" && tokens[i][1] !== "id"){
+                    semanticErrorPrint("Tipo de imediato inválido, esperado '_Integer_'", tokens[i][2], tokens[i][3]);
+                    return false;
+                }
+                checkList.push(tokens[i]);
+            }
+
+        }
+        else if(wantedType === "_Float_"){
+
+        }
+    }
+    
 }
 
 function delay(ms){

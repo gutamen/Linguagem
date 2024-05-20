@@ -34,7 +34,13 @@ Somente uma das opções
 _read_ <variável>;
 Lê do terminal e guarda na variável selecionada, para o programa
 
-Declaração de variável sempre com o _new_ <tipo> <nome>, podem ser decladas em qualquer lugar, porém a atribução deve ser feita em um próximo comando.
+Declaração de variável sempre com o _new_ <tipo> <nome>, podem ser decladas em qualquer lugar, porém a atribução deve ser feita em um próximo comando, o escopo de todo variável nova é global.
+
+O tipo Integer é de 64 bits, assim como o Float. Misturas entre os dois tipos de números sempre levam para Float, caso o destino de cálculo seja Integer e existem Floats na conta é considerado erro. Caracteres não se misturam com nada, suas declarações são únicas tendo o tamanho sempre um.
+
+Operações de multiplicação e divisão sempre devem ser realizadas antes nas atribuições.
+
+Strings podem ocorrer somente para função _print_ na tela, não podem ser carregas em variáveis.
 
 Operadores:
     
