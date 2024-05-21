@@ -826,13 +826,21 @@ function semanticProcess(command, tokens, symbolTable){
     
 }
 
-function enlistPameterTypes(name, symbolTable, parameterList){
+function enlistPameterTypes(tokens, symbolTable, parameterList, wantedType = null){
 // Retorno Se:
 // 0 = Tudo OK
 // 1 = Erro de Tipo
 // 2 = Variável não existe
-    
+    for(let i = 2; i < tokens.length; i += 2){
+        let typeForValue = new type('temp');
+        let exists = haveVariableinSymbolTable(tokens[i][0], symbolTable, typeForValue);
+        
+        if(!exists) return 2;
 
+        if(typeForValue.typeOf() !== wantedType) return 1;
+
+    } 
+    return 0;
 }
 
 function delay(ms){
