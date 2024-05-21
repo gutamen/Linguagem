@@ -742,11 +742,13 @@ function removeLineError(array){
 
 function haveVariableinSymbolTable(name, symbolTable, typeVar = null){
         let haveSymbol = false;
-        typeVar = new type('ola');
-//        console.log(typeVar.typeOf());
+
         for(let i = 0; i < symbolTable.length; i++){
             if(symbolTable[i].name === name){
                 haveSymbol = true;
+                if(typeVar !== null){
+                    typeVar.setType(symbolTable[i].typeOf());
+                }
             }
         }
 
@@ -767,46 +769,30 @@ function semanticProcess(command, tokens, symbolTable){
         }
     }
     else if(command === "[verificaAtribuicao]"){
-        let wantedType = null;
-        var tipo = new type('teste');
-        let haveSymbol = haveVariableinSymbolTable(tokens[2][0], symbolTable, tipo);
-        console.log(tipo);
-        
-        haveSymbol = false;
-
-        for(let i = 0; i < symbolTable.length; i++){
-            if(symbolTable[i].name === tokens[0][0]){
-                haveSymbol = true;
-                wantedType = symbolTable[i].type;
-            }
-        }
+//        console.log(tokens);
+        let wantedType = new type('temp');
+        let haveSymbol = haveVariableinSymbolTable(tokens[0][0], symbolTable, wantedType);
+//        console.log(haveSymbol);
 
         if(!haveSymbol){
             semanticErrorPrint("Variável '" + tokens[0][0] + "' não existe", tokens[0][2], tokens[0][3]);
             return false;
         }
 
-        if(wantedType === "_Char_"){
+        if(wantedType.typeOf() === "_Char_"){
             if(tokens.length > 3){
                 semanticErrorPrint("Parâmetros excessivos para declaração de caractere", tokens[0][2], tokens[0][3]);
                 return false;
             }
             else if(tokens[2][1] === "id"){
-                haveSymbol = false;
-                let attributeType = null;
-
-                for(let i = 0; i < symbolTable.length; i++){
-                    if(symbolTable[i].name === tokens[2][0]){
-                    haveSymbol = true;
-                    attributeType = symbolTable[i].type;
-                    }
-                }
+                let attributeType = new type('temp');
+                haveSymbol = haveVariableinSymbolTable(tokens[0][0], symbolTable, attributeType);
 
                 if(!haveSymbol){
                     semanticErrorPrint("Variável '" + tokens[2][0] + "' não existe", tokens[2][2], tokens[2][3]);
                     return false;
                 }
-                else if(attributeType !== "_Char_"){
+                else if(attributeType.typeOf() !== "_Char_"){
                     semanticErrorPrint("Variável atribuída '" + tokens[2][0] + "' tem tipo diferente", tokens[2][2], tokens[2][3]);
                     return false;
                 }
@@ -822,7 +808,7 @@ function semanticProcess(command, tokens, symbolTable){
             return true;
 
         }
-        else if(wantedType === "_Integer_"){
+        else if(wantedType.typeOf() === "_Integer_"){
             let checkList = [];
             for(let i = 2; i < tokens.length; i += 2){
                 if(tokens[i][1] !== "int" && tokens[i][1] !== "id"){
@@ -838,6 +824,15 @@ function semanticProcess(command, tokens, symbolTable){
         }
     }
     
+}
+
+function enlistPameterTypes(name, symbolTable, parameterList){
+// Retorno Se:
+// 0 = Tudo OK
+// 1 = Erro de Tipo
+// 2 = Variável não existe
+    
+
 }
 
 function delay(ms){
