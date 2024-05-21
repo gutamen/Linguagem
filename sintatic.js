@@ -1,4 +1,5 @@
 const tableEntry = require("./tableEntry.js");
+const type = require("./type.js")
  
 let sintaticTopDown = async function(tokens){
     let stack = [];
@@ -739,9 +740,10 @@ function removeLineError(array){
     array.shift();
 }
 
-function haveVariableinSymbolTable(name, symbolTable){
+function haveVariableinSymbolTable(name, symbolTable, typeVar = null){
         let haveSymbol = false;
-
+        typeVar = new type('ola');
+//        console.log(typeVar.typeOf());
         for(let i = 0; i < symbolTable.length; i++){
             if(symbolTable[i].name === name){
                 haveSymbol = true;
@@ -752,7 +754,6 @@ function haveVariableinSymbolTable(name, symbolTable){
 }
 
 function semanticProcess(command, tokens, symbolTable){
-//    console.log(tokens);
     if(command === "[novaVariavel]"){
         let haveSymbol = haveVariableinSymbolTable(tokens[2][0], symbolTable);
 
@@ -766,10 +767,12 @@ function semanticProcess(command, tokens, symbolTable){
         }
     }
     else if(command === "[verificaAtribuicao]"){
-//        console.log(tokens);
-        
         let wantedType = null;
-        let haveSymbol = false;
+        var tipo = new type('teste');
+        let haveSymbol = haveVariableinSymbolTable(tokens[2][0], symbolTable, tipo);
+        console.log(tipo);
+        
+        haveSymbol = false;
 
         for(let i = 0; i < symbolTable.length; i++){
             if(symbolTable[i].name === tokens[0][0]){
