@@ -734,7 +734,7 @@ function semanticErrorPrint(string, line, column){
 }
 
 function removeLineError(array){
-    while(array[0][1] !== ';'){
+    while(array[0][1] !== ';' && array[0][1] !== '$'){
         array.shift();
     }
     array.shift();
@@ -809,14 +809,14 @@ function semanticProcess(command, tokens, symbolTable){
 
         }
         else if(wantedType.typeOf() === "_Integer_"){
-            let checkList = [];
-            for(let i = 2; i < tokens.length; i += 2){
-                if(tokens[i][1] !== "int" && tokens[i][1] !== "id"){
-                    semanticErrorPrint("Tipo de imediato inválido, esperado '_Integer_'", tokens[i][2], tokens[i][3]);
-                    return false;
-                }
-                checkList.push(tokens[i]);
+            
+            let variableTest = enlistPameterTypesForInt(tokens, symbolTable, wantedType.typeOf());
+//            console.log(variableTest);
+            if(variableTest !== 0){
+                return false;
             }
+
+            return true;
 
         }
         else if(wantedType === "_Float_"){
@@ -826,21 +826,45 @@ function semanticProcess(command, tokens, symbolTable){
     
 }
 
-function enlistPameterTypes(tokens, symbolTable, parameterList, wantedType = null){
+function enlistPameterTypesForInt(tokens, symbolTable, wantedType = null){
 // Retorno Se:
 // 0 = Tudo OK
 // 1 = Erro de Tipo
 // 2 = Variável não existe
+    let tempType = null;
+    if(wantedType === "_Integer_"){
+        tempType = "int";
+    }
+    else if(wantedType === "_Float_"){
+        tempType = "ft";
+    }
+//    console.log(tempType)
+
+    let returnType = 0
+
     for(let i = 2; i < tokens.length; i += 2){
         let typeForValue = new type('temp');
-        let exists = haveVariableinSymbolTable(tokens[i][0], symbolTable, typeForValue);
-        
-        if(!exists) return 2;
+//        console.log(tokens[i][1]);
+        if(tokens[i][1] === "id"){
+            let exists = haveVariableinSymbolTable(tokens[i][0], symbolTable, typeForValue);
 
-        if(typeForValue.typeOf() !== wantedType) return 1;
+            if(!exists){
+                semanticErrorPrint("Variável '" + tokens[i][0] + "' não existe", tokens[i][2], tokens[i][3]);
+                returnType = 2;
+                continue;
+            } 
+
+            if(typeForValue.typeOf() !== wantedType){
+                semanticErrorPrint("Tipo da variável '" + tokens[i][0] + "' incopatível\nEsperado um valor '" + wantedType + "'", tokens[i][2], tokens[i][3]);
+                returnType = 1;
+            }
+        }else if(tokens[i][1] !== tempType){
+            
+            returnType = 1;
+        }
 
     } 
-    return 0;
+    return returnType;
 }
 
 function delay(ms){

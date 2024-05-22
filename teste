@@ -1,10 +1,10 @@
 _new_ _Integer_ TESTE; 
 _new_ _Integer_ VAR;
 _new_ _Char_ CARACTERE;
-_new_ _Char_ CARACTERE;
+_new_ _Float_ NADA;
 
 VAR = 10 * 1 + 1;
-TESTE = 5;
+TESTE = 5 + NADA;
 CARACTERE = 'c';
 
 _print_ "Teste de linguagem";

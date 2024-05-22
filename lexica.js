@@ -18,8 +18,8 @@ let lexicaAnaliser = function(file){
     let lexicalErrorPrint = function(string, line, column){
             console.log("--- ERRO LÉXICO ---")
 		    console.log(string);
-            console.log("Linha ==" + line);
-            console.log("Posição ==" + column);    
+            console.log("Linha == " + line);
+            console.log("Posição == " + column);    
             console.log();
     }
 
@@ -89,7 +89,7 @@ let lexicaAnaliser = function(file){
 		    return "int";
 		case "_Char_":
 		    return "ch";
-		case "_Float":
+		case "_Float_":
 		    return "ft";
 		default:
 		    lexicalErrorPrint("Tipo não reconhecido", line, column);
@@ -470,14 +470,6 @@ let lexicaAnaliser = function(file){
 		    continue; 
 		
 		case 18:
-		    if("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?!=+-*/á ".includes(char)){
-		        state = 18;
-		        readString += char;
-		        iterator++;
-		        column++;
-		        continue;
-		    }
-
 		    if('"'.includes(char)){
 		        state = 19;
 		        readString += char;
@@ -485,6 +477,13 @@ let lexicaAnaliser = function(file){
 		        column++;
 		        continue;
 		    }
+
+		    state = 18;
+		    readString += char;
+		    iterator++;
+		    column++;
+		    continue;
+		    
 
 //		    console.log(state);
 		    state = 0;
@@ -583,7 +582,12 @@ let lexicaAnaliser = function(file){
         
 
     }
-    
+
+    if(state === 18){
+        lexicalErrorPrint('String não finalizada', line, column);
+        errorCount++;
+    }
+
     console.log("Análise lexica concluída com um total de " + errorCount + " erros.");
 
     return tokens;
