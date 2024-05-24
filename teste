@@ -3,7 +3,7 @@ _new_ _Integer_ VAR;
 _new_ _Char_ CARACTERE;
 _new_ _Float_ NADA;
 
-VAR = 10 * 1 + 1;
+VAR = 10 * 1 + 1 + 1.2;
 TESTE = 5 + NADA;
 CARACTERE = 'c';
 

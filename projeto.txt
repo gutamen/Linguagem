@@ -34,15 +34,22 @@ Somente uma das opções
 _read_ <variável>;
 Lê do terminal e guarda na variável selecionada, para o programa
 
+Definições semânticas -->
+
 Declaração de variável sempre com o _new_ <tipo> <nome>, podem ser decladas em qualquer lugar, porém a atribução deve ser feita em um próximo comando, o escopo de todo variável nova é global.
 
-O tipo Integer é de 64 bits, assim como o Float. Misturas entre os dois tipos de números é transformado tudo em Float, caso o destino de cálculo seja Integer e existem Floats na conta é considerado erro. Caracteres não se misturam com nada, suas declarações são únicas tendo o tamanho sempre um.
+O tipo Integer é de 64 bits, assim como o Float. Misturas entre os dois tipos de números geram uma coerção para Float, caso o destino de cálculo seja Integer e existem Floats na conta é considerado erro. Caracteres não se misturam com nada, suas declarações são únicas tendo o tamanho sempre um.
+
+No print pode haver Strings declaradas no corpo do chamada da função.
+
+O print só aceita uma única variável, assim como o read.
 
 Operações de multiplicação e divisão sempre devem ser realizadas antes nas atribuições.
 
 Strings podem ocorrer somente para função _print_ na tela, não podem ser carregas em variáveis.
 
-Operadores:
+
+Operadores -->
     
     Aritméticos ->
         Atribuição      =
@@ -87,6 +94,8 @@ Operadores:
     Lógicos         log     (::,&&,||,!!)
 
     Relacional      rel     (<<,>>)
+
+Gramática para análise sintática -->
 
 GLC ==
 {
@@ -191,9 +200,9 @@ Follow:
  _print_ TESTE;
  
 
-Código de três endereços:
+Código de três endereços -->
 
-Celestial Hub   --> gerar código ETAC
+Celestial Hub -> gerar código ETAC
 
 limitados a dez registradores temporários
 https://www.explore-celestial-with.me/

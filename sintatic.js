@@ -801,7 +801,7 @@ function semanticProcess(command, tokens, symbolTable){
                 
             }
             else if(tokens[2][1] !== 'ch'){
-                semanticErrorPrint("Atribuição incorreta para '" + tokens[0][0] + "'", tokens[2][2], tokens[2][3]);
+                semanticErrorPrint("Atribuição incorreta para '" + tokens[0][0] + "', esperado caractere ou variável tipo _Char_", tokens[2][2], tokens[2][3]);
                 return false;
             }
 
@@ -810,7 +810,7 @@ function semanticProcess(command, tokens, symbolTable){
         }
         else if(wantedType.typeOf() === "_Integer_"){
             
-            let variableTest = enlistPameterTypesForInt(tokens, symbolTable, wantedType.typeOf());
+            let variableTest = enlistPameterTypesForInt(tokens, symbolTable);
 //            console.log(variableTest);
             if(variableTest !== 0){
                 return false;
@@ -826,11 +826,12 @@ function semanticProcess(command, tokens, symbolTable){
     
 }
 
-function enlistPameterTypesForInt(tokens, symbolTable, wantedType = null){
+function enlistPameterTypesForInt(tokens, symbolTable){
 // Retorno Se:
 // 0 = Tudo OK
 // 1 = Erro de Tipo
 // 2 = Variável não existe
+    let wantedType = "_Integer_";
     let tempType = null;
     if(wantedType === "_Integer_"){
         tempType = "int";
@@ -859,7 +860,7 @@ function enlistPameterTypesForInt(tokens, symbolTable, wantedType = null){
                 returnType = 1;
             }
         }else if(tokens[i][1] !== tempType){
-            
+            semanticErrorPrint("Imediato atribuído do tipo " + (tokens[i][1] === "ft" ? "'_Float_'" : "'_Char_'") + " inválido, esperado tipo '_Integer_'", tokens[i][2], tokens[i][3]); 
             returnType = 1;
         }
 
