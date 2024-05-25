@@ -35,6 +35,7 @@ _read_ <variável>;
 Lê do terminal e guarda na variável selecionada, para o programa
 
 Definições semânticas -->
+Todas as variáveis no momento em que são atribuídas recebem o valor 0.
 
 Declaração de variável sempre com o _new_ <tipo> <nome>, podem ser decladas em qualquer lugar, porém a atribução deve ser feita em um próximo comando, o escopo de todo variável nova é global.
 

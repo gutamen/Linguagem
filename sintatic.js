@@ -82,6 +82,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado função, declaração, atribuição ou fim de linha", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -139,6 +141,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado função, declaração, atribuição ou fim de linha", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -184,6 +188,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado função, atribuição ou declaração", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -201,6 +207,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado uma declação", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -218,6 +226,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado uma atribuição", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -248,6 +258,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado um valor, caractere ou variável", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -273,6 +285,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado valor ou variável", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -319,6 +333,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado operador, fim de linha ou começo de bloco", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -366,6 +382,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado operador, fim de linha ou começo de bloco\nMultiplicação primeiro", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -391,6 +409,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado um valor ou uma variável", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -427,6 +447,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado uma função", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -447,6 +469,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado uma variável ou uma string", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -477,6 +501,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado um valor, uma variável ou um caractere", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -507,6 +533,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado um valor, uma variável ou um caractere", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -527,6 +555,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado um operador lógico ou relacional", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -557,6 +587,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado um valor, uma variável ou um caractere", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -581,6 +613,8 @@ let sintaticTopDown = async function(tokens){
                         default:
                             sintaxErrorPrint("Esperado um operador lógico ou relacional, ou fim de bloco", tokens[0][2], tokens[0][3]);
                             removeLineError(tokens);
+                            semanticAnalysis = [];
+                            semanticTime = false;
                             stack = ["$", "<programa>"];
                             errorCount++;
                     }
@@ -714,6 +748,8 @@ let sintaticTopDown = async function(tokens){
                         break;
                 }
                 removeLineError(tokens);
+                semanticAnalysis = [];
+                semanticTime = false;
                 stack = ["$", "<programa>"];
                 errorCount++;
 
@@ -832,15 +868,105 @@ function semanticProcess(command, tokens, symbolTable){
         }
     }
     else if(command === "[verificaBooleano]"){
-        let subTokens = []
-        console.log(tokens);
-        for(let i = 0; i < tokens.length; i++){
-
+        let subTokens = generateSubBooleans(tokens, symbolTable);
+//        console.log(subTokens);
+        let errorInComparsion = false;
+        for(let i = 0; i < subTokens.length; i++){
+            
         }
-
-        return true;
+//        console.log(errorInComparsion);
+        return !errorInComparsion;
     }
     
+}
+
+function verifyTypeOfRealation(tokens, symbolTable){
+    let returnType = new type('temp');
+    let firstType = tokens[0][1];
+    let error = false;
+    console.log(tokens);
+    if(firstType === 'id'){
+        let existsSymbol = haveVariableinSymbolTable(tokens[0][0], symbolTable, returnType);
+        if(!existsSymbol){
+            semanticErrorPrint("Variável '" + tokens[0][0] + "' não existe", tokens[0][2], tokens[0][3]);
+            error = true;
+            returnType.setType("_Undefined_");
+        }
+    }
+    else if(firstType === 'ch'){ 
+        returnType.setType("_Char_");
+    }
+    else if(firstType === 'int'){ 
+        returnType.setType("_Integer_");
+    }
+    else{ 
+        returnType.setType("_Float_");
+    }
+
+    console.log(returnType);
+
+    for(let i = 3; i < tokens.length; i++){
+        if(tokens[i][1] === 'id'){
+            let typeForValue = new type('temp');
+            let exists = haveVariableinSymbolTable(tokens[i][0], symbolTable, typeForValue);
+
+            if(!exists){
+                semanticErrorPrint("Variável '" + tokens[i][0] + "' não existe", tokens[i][2], tokens[i][3]);
+                error = true;
+                continue;
+            } 
+
+            if(returnType.typeOf() === '_Undefined_'){
+                continue;
+            }
+
+            if(returnType.typeOf() === "_Float_" && typeForValue.typeOf() === "_Char_"){
+                semanticErrorPrint("Tipo da variável '" + tokens[i][0] + "' incopatível\nEsperado um valor '_Float_' ou '_Integer_'", tokens[i][2], tokens[i][3]);
+                error = true;
+            }
+            else if(returnType.typeOf() !== typeForValue.typeOf()){
+                semanticErrorPrint("Tipo da variável '" + tokens[i][0] + "' incopatível\nEsperado um valor '" + returnType.typeOf() + "'", tokens[i][2], tokens[i][3]);
+                error = true;
+            }
+
+        }
+        else if(returnType.typeOf() === '_Undefined_'){
+            continue;
+        }
+        else if(returnType.typeOf() === "_Float_" && tokens[i][1] === 'ch'){
+            semanticErrorPrint("Tipos comparados incopatíveis, esperado '_Float_' ou '_Integer_'", tokens[i][2], tokens[i][3]);
+            error = true;
+        }
+        else if(returnType.typeOf() !== ("_Integer_" ? tokens[i][1] === 'int' : "_Char_" ? tokens[i][1] === 'ch' : "_Float_")){
+            semanticErrorPrint("Tipos comparados incopatíveis, esperado '" + returnType.typeOf() + "'", tokens[i][2], tokens[i][3]);
+            error = true;
+        }
+    }
+
+    return error;
+}
+
+function generateSubBooleans(tokens) {
+    let subTokens = [[]];
+    for(let i = tokens.length - 1; i >= 0; i--){
+        if(tokens[i][0] !== '$>') tokens.pop();
+        else{
+            tokens.pop();
+            break;
+        }
+    }
+    let k = 0;
+    for(let i = 1; i < tokens.length; i++){
+        if(tokens[i][1] === 'log'){
+            subTokens.push([]);
+            k++;
+            continue;
+        }
+        subTokens[k].push(tokens[i]);
+        
+    }
+
+    return subTokens;
 }
 
 function enlistPameterTypesForInteger(tokens, symbolTable){
