@@ -405,7 +405,8 @@ let sintaticTopDown = async function(tokens){
 
                         case "if":
                             stack.pop();
-                            stack.push("<sera>", "if");
+                            stack.push("[verificaBooleano]", "<sera>", "if");
+                            semanticTime = true;
                             break;
 
                         case "for":
@@ -594,7 +595,8 @@ let sintaticTopDown = async function(tokens){
 //            console.log();
 //            console.log(stack);
             
-            if(!semanticProcess(stack[stack.length - 1], semanticAnalysis, symbolTable, errorCount)) errorCount++; 
+            if(!semanticProcess(stack[stack.length - 1], semanticAnalysis, symbolTable)) errorCount++;
+//            console.log(errorCount);
             semanticTime = false;
             semanticAnalysis = [];
             stack.pop();
@@ -770,10 +772,11 @@ function semanticProcess(command, tokens, symbolTable){
     }
     else if(command === "[verificaAtribuicao]"){
 //        console.log(tokens);
+//        console.log(symbolTable);
         let wantedType = new type('temp');
         let haveSymbol = haveVariableinSymbolTable(tokens[0][0], symbolTable, wantedType);
 //        console.log(haveSymbol);
-
+//        console.log(wantedType);
         if(!haveSymbol){
             semanticErrorPrint("Variável '" + tokens[0][0] + "' não existe", tokens[0][2], tokens[0][3]);
             return false;
@@ -810,8 +813,7 @@ function semanticProcess(command, tokens, symbolTable){
         }
         else if(wantedType.typeOf() === "_Integer_"){
             
-            let variableTest = enlistPameterTypesForInt(tokens, symbolTable);
-//            console.log(variableTest);
+            let variableTest = enlistPameterTypesForInteger(tokens, symbolTable);
             if(variableTest !== 0){
                 return false;
             }
@@ -819,27 +821,35 @@ function semanticProcess(command, tokens, symbolTable){
             return true;
 
         }
-        else if(wantedType === "_Float_"){
+        else if(wantedType.typeOf() === "_Float_"){
+            let variableTest = enlistPameterTypesForFloat(tokens, symbolTable);
+
+            if(variableTest !== 0){
+                return false;
+            }
+
+            return true;
+        }
+    }
+    else if(command === "[verificaBooleano]"){
+        let subTokens = []
+        console.log(tokens);
+        for(let i = 0; i < tokens.length; i++){
 
         }
+
+        return true;
     }
     
 }
 
-function enlistPameterTypesForInt(tokens, symbolTable){
+function enlistPameterTypesForInteger(tokens, symbolTable){
 // Retorno Se:
 // 0 = Tudo OK
 // 1 = Erro de Tipo
 // 2 = Variável não existe
     let wantedType = "_Integer_";
-    let tempType = null;
-    if(wantedType === "_Integer_"){
-        tempType = "int";
-    }
-    else if(wantedType === "_Float_"){
-        tempType = "ft";
-    }
-//    console.log(tempType)
+    let tempType = "int";
 
     let returnType = 0
 
@@ -859,13 +869,49 @@ function enlistPameterTypesForInt(tokens, symbolTable){
                 semanticErrorPrint("Tipo da variável '" + tokens[i][0] + "' incopatível\nEsperado um valor '" + wantedType + "'", tokens[i][2], tokens[i][3]);
                 returnType = 1;
             }
-        }else if(tokens[i][1] !== tempType){
+        }
+        else if(tokens[i][1] !== tempType){
             semanticErrorPrint("Imediato atribuído do tipo " + (tokens[i][1] === "ft" ? "'_Float_'" : "'_Char_'") + " inválido, esperado tipo '_Integer_'", tokens[i][2], tokens[i][3]); 
             returnType = 1;
         }
 
     } 
     return returnType;
+}
+
+function enlistPameterTypesForFloat(tokens, symbolTable){
+// Retorno Se:
+// 0 = Tudo OK
+// 1 = Erro de Tipo
+// 2 = Variável não existe
+
+    let returnType = 0
+
+    for(let i = 2; i < tokens.length; i += 2){
+        let typeForValue = new type('temp');
+//        console.log(tokens[i][1]);
+        if(tokens[i][1] === "id"){
+            let exists = haveVariableinSymbolTable(tokens[i][0], symbolTable, typeForValue);
+
+            if(!exists){
+                semanticErrorPrint("Variável '" + tokens[i][0] + "' não existe", tokens[i][2], tokens[i][3]);
+                returnType = 2;
+                continue;
+            } 
+
+            if(typeForValue.typeOf() === "_Char_"){
+                semanticErrorPrint("Tipo da variável '" + tokens[i][0] + "' incopatível\nEsperado um valor '_Float_' ou '_Integer_'", tokens[i][2], tokens[i][3]);
+                returnType = 1;
+            }
+        }
+        else if(tokens[i][1] === "ch"){
+            semanticErrorPrint("Imediato atribuído do tipo " + (tokens[i][1] === "ft" ? "'_Float_'" : "'_Char_'") + " inválido, esperado tipo '_Integer_'", tokens[i][2], tokens[i][3]); 
+            returnType = 1;
+        }
+
+    } 
+    return returnType;
+
 }
 
 function delay(ms){
