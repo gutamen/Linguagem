@@ -421,6 +421,8 @@ let sintaticTopDown = async function(tokens){
                         case "repeater":
                             stack.pop();
                             stack.push("<sera>", "repeater");
+//                            stack.push("[verificaBooleano]", "<sera>", "repeater");
+//                            semanticTime = true;
                             break;
 
                         case "if":
@@ -794,6 +796,7 @@ function haveVariableinSymbolTable(name, symbolTable, typeVar = null){
 }
 
 function semanticProcess(command, tokens, symbolTable){
+    
     if(command === "[novaVariavel]"){
         let haveSymbol = haveVariableinSymbolTable(tokens[2][0], symbolTable);
 
@@ -807,6 +810,7 @@ function semanticProcess(command, tokens, symbolTable){
         }
     }
     else if(command === "[verificaAtribuicao]"){
+        
 //        console.log(tokens);
 //        console.log(symbolTable);
         let wantedType = new type('temp');
@@ -868,11 +872,18 @@ function semanticProcess(command, tokens, symbolTable){
         }
     }
     else if(command === "[verificaBooleano]"){
+        console.log(tokens);
+        console.log();
         let subTokens = generateSubBooleans(tokens, symbolTable);
 //        console.log(subTokens);
         let errorInComparsion = false;
         for(let i = 0; i < subTokens.length; i++){
-            
+            if(!errorInComparsion){
+                errorInComparsion = verifyTypeOfRealation(subTokens[i], symbolTable);
+                continue;
+            }
+            verifyTypeOfRealation(subTokens[i], symbolTable);
+
         }
 //        console.log(errorInComparsion);
         return !errorInComparsion;
@@ -881,10 +892,11 @@ function semanticProcess(command, tokens, symbolTable){
 }
 
 function verifyTypeOfRealation(tokens, symbolTable){
+//    console.log(tokens); 
     let returnType = new type('temp');
     let firstType = tokens[0][1];
     let error = false;
-    console.log(tokens);
+
     if(firstType === 'id'){
         let existsSymbol = haveVariableinSymbolTable(tokens[0][0], symbolTable, returnType);
         if(!existsSymbol){
@@ -903,9 +915,15 @@ function verifyTypeOfRealation(tokens, symbolTable){
         returnType.setType("_Float_");
     }
 
-    console.log(returnType);
+//    console.log(returnType);
 
-    for(let i = 3; i < tokens.length; i++){
+
+    for(let i = 2; i < tokens.length; i++){
+
+        if(tokens[i][1] === 'rel'){
+            continue;
+        }
+
         if(tokens[i][1] === 'id'){
             let typeForValue = new type('temp');
             let exists = haveVariableinSymbolTable(tokens[i][0], symbolTable, typeForValue);
@@ -924,6 +942,12 @@ function verifyTypeOfRealation(tokens, symbolTable){
                 semanticErrorPrint("Tipo da variável '" + tokens[i][0] + "' incopatível\nEsperado um valor '_Float_' ou '_Integer_'", tokens[i][2], tokens[i][3]);
                 error = true;
             }
+            else if(returnType.typeOf() === "_Integer_" && typeForValue.typeOf() === "_Float_"){
+                returnType.setType("_Float_");
+            }
+            else if(returnType.typeOf() === '_Float_' && typeForValue.typeOf() === '_Integer_'){
+                continue;
+            }
             else if(returnType.typeOf() !== typeForValue.typeOf()){
                 semanticErrorPrint("Tipo da variável '" + tokens[i][0] + "' incopatível\nEsperado um valor '" + returnType.typeOf() + "'", tokens[i][2], tokens[i][3]);
                 error = true;
@@ -933,11 +957,19 @@ function verifyTypeOfRealation(tokens, symbolTable){
         else if(returnType.typeOf() === '_Undefined_'){
             continue;
         }
-        else if(returnType.typeOf() === "_Float_" && tokens[i][1] === 'ch'){
+        else if((returnType.typeOf() === "_Float_" || returnType.typeOf() === "_Integer_") && tokens[i][1] === 'ch'){
+//            console.log('aqui');
             semanticErrorPrint("Tipos comparados incopatíveis, esperado '_Float_' ou '_Integer_'", tokens[i][2], tokens[i][3]);
             error = true;
         }
-        else if(returnType.typeOf() !== ("_Integer_" ? tokens[i][1] === 'int' : "_Char_" ? tokens[i][1] === 'ch' : "_Float_")){
+        else if(returnType.typeOf() === "_Integer_" && tokens[i][1] === 'ft'){
+            returnType.setType("_Float_");
+            continue;
+        }
+        else if(returnType.typeOf() === "_Float_" && tokens[i][1] === 'int'){
+            continue;
+        }
+        else if(returnType.typeOf() !== (tokens[i][1] === 'int' ? "_Integer_" : tokens[i][1] === 'ch' ? "_Char_" : "_Float_")){          
             semanticErrorPrint("Tipos comparados incopatíveis, esperado '" + returnType.typeOf() + "'", tokens[i][2], tokens[i][3]);
             error = true;
         }

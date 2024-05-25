@@ -68,7 +68,7 @@ let lexicaAnaliser = function(file){
                 return "log";
 
             case "::":
-                return "log";
+                return "rel";
             
             case "!!":
                 return "log";
@@ -588,7 +588,7 @@ let lexicaAnaliser = function(file){
         errorCount++;
     }
 
-    console.log("Análise lexica concluída com um total de " + errorCount + " erros.");
+    console.log("Análise lexica concluída com um total de " + errorCount + " erros.\n");
 
     return tokens;
 

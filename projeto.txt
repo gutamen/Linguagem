@@ -60,7 +60,7 @@ Operadores -->
         Multiplicação   *
     
     Lógicos ->
-        Igualdade       ==
+        Igualdade       ::
         E               &&
         OU              ||
         Negação         !!
