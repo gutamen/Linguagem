@@ -422,12 +422,13 @@ let sintaticTopDown = async function(tokens){
                             stack.pop();
                             stack.push("<sera>", "repeater");
 //                            stack.push("[verificaBooleano]", "<sera>", "repeater");
-//                            semanticTime = true;
+                            semanticTime = true;
                             break;
 
                         case "if":
                             stack.pop();
-                            stack.push("[verificaBooleano]", "<sera>", "if");
+                            stack.push("<sera>", "if");
+//                            stack.push("[verificaBooleano]", "<sera>", "if");
                             semanticTime = true;
                             break;
 
@@ -546,12 +547,14 @@ let sintaticTopDown = async function(tokens){
                     switch(tokenFirst){
                         case "log":
                             stack.pop();
-                            stack.push("<", "<declaracoes>", ">", "<log-rel>", "log");
+                            stack.push("<", "<declaracoes>", ">", "[verificaBooleano]", "<log-rel>", "log");
+//                            semanticTime = true;
                             break;
                         
                         case "rel":
                             stack.pop();
-                            stack.push("<", "<declaracoes>", ">", "<log-rel>", "rel");
+                            stack.push("<", "<declaracoes>", ">", "[verificaBooleano]", "<log-rel>", "rel");
+//                            semanticTime = true;
                             break;
 
                         default:
@@ -795,8 +798,7 @@ function haveVariableinSymbolTable(name, symbolTable, typeVar = null){
         return haveSymbol;
 }
 
-function semanticProcess(command, tokens, symbolTable){
-    
+function semanticProcess(command, tokens, symbolTable){      
     if(command === "[novaVariavel]"){
         let haveSymbol = haveVariableinSymbolTable(tokens[2][0], symbolTable);
 
@@ -810,13 +812,8 @@ function semanticProcess(command, tokens, symbolTable){
         }
     }
     else if(command === "[verificaAtribuicao]"){
-        
-//        console.log(tokens);
-//        console.log(symbolTable);
         let wantedType = new type('temp');
-        let haveSymbol = haveVariableinSymbolTable(tokens[0][0], symbolTable, wantedType);
-//        console.log(haveSymbol);
-//        console.log(wantedType);
+        let haveSymbol = haveVariableinSymbolTable(tokens[0][0], symbolTable, wantedType);;
         if(!haveSymbol){
             semanticErrorPrint("Variável '" + tokens[0][0] + "' não existe", tokens[0][2], tokens[0][3]);
             return false;
@@ -872,8 +869,9 @@ function semanticProcess(command, tokens, symbolTable){
         }
     }
     else if(command === "[verificaBooleano]"){
-        console.log(tokens);
-        console.log();
+//        console.log(tokens);
+//        console.log();
+        
         let subTokens = generateSubBooleans(tokens, symbolTable);
 //        console.log(subTokens);
         let errorInComparsion = false;
@@ -949,7 +947,7 @@ function verifyTypeOfRealation(tokens, symbolTable){
                 continue;
             }
             else if(returnType.typeOf() !== typeForValue.typeOf()){
-                semanticErrorPrint("Tipo da variável '" + tokens[i][0] + "' incopatível\nEsperado um valor '" + returnType.typeOf() + "'", tokens[i][2], tokens[i][3]);
+                semanticErrorPrint("Tipo da variável '" + tokens[i][0] + "' incopatível\nEsperado um valor '" + (typeForValue.typeOf() !== "_Char_" ? returnType.typeOf() : "_Integer_' ou '_Float_") + "'", tokens[i][2], tokens[i][3]);
                 error = true;
             }
 
@@ -980,6 +978,9 @@ function verifyTypeOfRealation(tokens, symbolTable){
 
 function generateSubBooleans(tokens) {
     let subTokens = [[]];
+//    console.log(tokens);
+    
+    /*
     for(let i = tokens.length - 1; i >= 0; i--){
         if(tokens[i][0] !== '$>') tokens.pop();
         else{
@@ -987,6 +988,8 @@ function generateSubBooleans(tokens) {
             break;
         }
     }
+    */
+
     let k = 0;
     for(let i = 1; i < tokens.length; i++){
         if(tokens[i][1] === 'log'){
