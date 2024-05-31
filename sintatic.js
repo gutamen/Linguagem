@@ -829,6 +829,7 @@ function semanticProcess(command, tokens, symbolTable){
             return false;
         }
 
+        symbolTable.push(new tableEntry(tokens[tokens.length - 1][0], "_Integer_"));
         return true;
     }
     else if(command === "[verificaAtribuicao]"){

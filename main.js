@@ -17,7 +17,7 @@ async function main(){
     if(errors === 0){
         console.log('\nRealizando Construção do Código\n');
         tokens = lexicaAnaliser(file);
-        codeConstruction(tokens);
+//        codeConstruction(tokens);
     }
     
 }

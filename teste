@@ -3,10 +3,12 @@ _new_ _Integer_ VAR;
 _new_ _Char_ CARACTERE;
 _new_ _Float_ NADA;
 
+
 VAR = 10 * 1 + 1;
 TESTE = 5;
 NADA = 5 + 4.2 + NADA + VAR;
 CARACTERE = 'c';
+
 
 _print_ "Teste de linguagem";
 
@@ -14,7 +16,7 @@ _print_ VAR;
 
 _reader_ VAR;
 
-_if_ 10 :: 10 || 10 >> 1 $> 
+_if_ VAR || CARACTERE $> 
     _print_ "Variável maior que dez";
 $<;
 
@@ -25,5 +27,7 @@ $<;
 _for_ 1, 10, I $> 
     TESTE = TESTE * 2;
 $<;
+
+_new_ _Integer_ I;
 
 _print_ TESTE;
