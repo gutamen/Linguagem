@@ -434,7 +434,8 @@ let sintaticTopDown = async function(tokens){
 
                         case "for":
                             stack.pop();
-                            stack.push("<", "<declaracoes>", ">", "id", ",", "int", ",", "int", "for");
+                            stack.push("<", "<declaracoes>", ">", "[verificaRepeticao]", "id", ",", "int", ",", "int", "for");
+                            semanticTime = true;
                             break;
 
                         case "print":
@@ -444,7 +445,8 @@ let sintaticTopDown = async function(tokens){
 
                         case "reader":
                             stack.pop();
-                            stack.push("id", "reader");
+                            stack.push("[verificaVariavel]", "id", "reader");
+                            semanticTime = true;
                             break;
 
                         default:
@@ -461,7 +463,8 @@ let sintaticTopDown = async function(tokens){
                     switch(tokenFirst){
                         case "id":
                             stack.pop();
-                            stack.push("id");
+                            stack.push("[verificaVariavel]", "id");
+                            semanticTime = true;
                             break;
 
                         case "str":
@@ -656,8 +659,8 @@ let sintaticTopDown = async function(tokens){
                 }
             }
             else if(tokenFirst === '$' && stackTop === '$'){
-                console.log("Código análisado com ", errorCount, " erros");
-                break;
+                console.log("Código análisado com ", String(errorCount), " linhas contendo erros.");
+                return errorCount;
             }else{
                 switch(stackTop){
                     case ";":
@@ -810,6 +813,23 @@ function semanticProcess(command, tokens, symbolTable){
             semanticErrorPrint("Nome de variável '" + tokens[2][0] + "' já declarado", tokens[2][2], tokens[2][3]); 
             return false;
         }
+    }
+    else if(command === "[verificaVariavel]"){
+//        console.log(tokens);
+        if(!haveVariableinSymbolTable(tokens[tokens.length - 1][0], symbolTable)){
+            semanticErrorPrint("Variável '" + tokens[tokens.length - 1][0] + "' não existe", tokens[tokens.length - 1][2], tokens[tokens.length - 1][3]);
+            return false;
+        }
+        return true;
+    }
+    else if(command === "[verificaRepeticao]"){
+        let wantedType = new type('temp');
+        if(haveVariableinSymbolTable(tokens[tokens.length - 1][0], symbolTable, wantedType)){
+            semanticErrorPrint("Variável '" + tokens[tokens.length - 1][0] + "' já alocada", tokens[tokens.length - 1][2], tokens[tokens.length - 1][3]);
+            return false;
+        }
+
+        return true;
     }
     else if(command === "[verificaAtribuicao]"){
         let wantedType = new type('temp');

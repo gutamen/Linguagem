@@ -1,14 +1,24 @@
 const fs = require("fs");
 
-let file = fs.readFileSync(process.argv[2], "utf-8");
+const codeConstruction = require('./codeConstruction.js');
 
 const lexicaAnaliser = require('./lexica.js');
 
 const sintaticTopDown = require('./sintatic.js');
 
-let tokens = lexicaAnaliser(file);
+main();
 
-//console.log(tokens);
 
-sintaticTopDown(tokens);
+async function main(){
+    let file = fs.readFileSync(process.argv[2], "utf-8");
+    let tokens = lexicaAnaliser(file);
+    let errors = await sintaticTopDown(tokens);
+
+    if(errors === 0){
+        console.log('\nRealizando Construção do Código\n');
+        tokens = lexicaAnaliser(file);
+        codeConstruction(tokens);
+    }
+    
+}
 

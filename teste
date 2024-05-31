@@ -10,6 +10,10 @@ CARACTERE = 'c';
 
 _print_ "Teste de linguagem";
 
+_print_ VAR;
+
+_reader_ VAR;
+
 _if_ 10 :: 10 || 10 >> 1 $> 
     _print_ "Variável maior que dez";
 $<;

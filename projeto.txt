@@ -32,7 +32,7 @@ _print_ <variável> || "String a ser escrita";
 Somente uma das opções
 
 _read_ <variável>;
-Lê do terminal e guarda na variável selecionada, para o programa
+Lê do terminal e guarda na variável selecionada, para o programa	
 
 Definições semânticas -->
 Todas as variáveis no momento em que são atribuídas recebem o valor 0.
@@ -48,6 +48,8 @@ O print só aceita uma única variável, assim como o read.
 Operações de multiplicação e divisão sempre devem ser realizadas antes nas atribuições.
 
 Strings podem ocorrer somente para função _print_ na tela, não podem ser carregas em variáveis.
+
+No laço de repetição 'for' a variável alocada deve ser nova no código, o tipo da nova variável sempre será _Integer_, após o final do laço a variável continua alocada.
 
 
 Operadores -->
